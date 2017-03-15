@@ -1,0 +1,7 @@
+# Java
+bin
+build
+*.class
+
+# JetBrains IDE
+.idea
