@@ -23,6 +23,7 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.Collection;
 
+import codeu.chat.Database.Database;
 import codeu.chat.common.Conversation;
 import codeu.chat.common.ConversationSummary;
 import codeu.chat.common.LinearUuidGenerator;
@@ -48,7 +49,10 @@ public final class Server {
   private final Uuid id;
   private final byte[] secret;
 
-  private final Model model = new Model();
+  private final String databasePath = "database";
+
+  private final Database database = new Database(databasePath);
+  private final Model model = new Model(database);
   private final View view = new View(model);
   private final Controller controller;
 

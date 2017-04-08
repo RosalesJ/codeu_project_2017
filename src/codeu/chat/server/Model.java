@@ -16,6 +16,7 @@ package codeu.chat.server;
 
 import java.util.Comparator;
 
+import codeu.chat.Database.Database;
 import codeu.chat.common.Conversation;
 import codeu.chat.common.ConversationSummary;
 import codeu.chat.common.LinearUuidGenerator;
@@ -53,6 +54,8 @@ public final class Model {
 
   private static final Comparator<String> STRING_COMPARE = String.CASE_INSENSITIVE_ORDER;
 
+  private final Database database;
+
   private final Store<Uuid, User> userById = new Store<>(UUID_COMPARE);
   private final Store<Time, User> userByTime = new Store<>(TIME_COMPARE);
   private final Store<String, User> userByText = new Store<>(STRING_COMPARE);
@@ -68,7 +71,26 @@ public final class Model {
   private final Uuid.Generator userGenerations = new LinearUuidGenerator(null, 1, Integer.MAX_VALUE);
   private Uuid currentUserGeneration = userGenerations.make();
 
+  public Model(Database database) {
+    this.database = database;
+
+    for (User user : database.getUsers(100)) {
+      add(user);
+    }
+    for (Message message : database.getMessages(1000)) {
+      add(message);
+    }
+    for (Conversation conversation : database.getConversations(100)) {
+      add(conversation);
+    }
+  }
+
+  public Model() {
+    this.database = new Database("database");
+  }
+
   public void add(User user) {
+    database.write(user);
     currentUserGeneration = userGenerations.make();
 
     userById.insert(user.id, user);
@@ -93,6 +115,8 @@ public final class Model {
   }
 
   public void add(Conversation conversation) {
+    database.write(conversation);
+
     conversationById.insert(conversation.id, conversation);
     conversationByTime.insert(conversation.creation, conversation);
     conversationByText.insert(conversation.title, conversation);
@@ -111,6 +135,8 @@ public final class Model {
   }
 
   public void add(Message message) {
+    database.write(message);
+
     messageById.insert(message.id, message);
     messageByTime.insert(message.creation, message);
     messageByText.insert(message.content, message);
