@@ -3,5 +3,10 @@ bin
 build
 *.class
 
+
 # JetBrains IDE
 .idea
+*.iml
+
+#Maven
+pom.xml
