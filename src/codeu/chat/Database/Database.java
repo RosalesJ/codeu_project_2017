@@ -16,8 +16,6 @@ package codeu.chat.Database;
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
-import codeu.chat.util.Time;
-import codeu.chat.util.Uuid;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
@@ -34,148 +32,88 @@ import java.util.Collection;
  * storing and retrieving Converations, Messages, and Users
  */
 public class Database {
-    public final MongoClient mongoClient;
-    public final MongoDatabase database;
-    public final MongoCollection<Document> users;
-    public final MongoCollection<Document> messages;
-    public final MongoCollection<Document> conversations;
+  public final MongoClient mongoClient;
+  public final MongoDatabase database;
+  public final MongoCollection<Document> users;
+  public final MongoCollection<Document> messages;
+  public final MongoCollection<Document> conversations;
 
 
-    public Database(String path){
-        mongoClient = new MongoClient();
-        database = mongoClient.getDatabase(path);
+  public Database(String path){
+    mongoClient = new MongoClient();
+    database = mongoClient.getDatabase(path);
 
-        users = database.getCollection("users");
-        messages = database.getCollection("messages");
-        conversations = database.getCollection("conversations");
+    users = database.getCollection("users");
+    messages = database.getCollection("messages");
+    conversations = database.getCollection("conversations");
+  }
 
+  /**
+   * Convert a Message to document form and store in messages collection
+   * @param message the message to store
+   */
+  public void write(Message message){
+    messages.insertOne(Packer.packMessage(message));
+  }
+
+  /**
+   * Convert a Message to Document form and store in conversations collections
+   * @param conversation the conversation to be stored
+   */
+  public void write(Conversation conversation){
+    conversations.insertOne(Packer.packConversation(conversation));
+  }
+
+  /**
+   * Convert a User to Document form and store in users collection
+   * @param user the user to be stored
+   */
+  public void write(User user) {
+    users.insertOne(Packer.packUser(user));
+  }
+
+  /**
+   * Return a collection of Users from the Database
+   * @param limit the maximum number of users in the collection
+   * @return an ArrayList of Users
+   */
+  public Collection<User> getUsers(int limit) {
+    ArrayList<User> returnedUsers = new ArrayList<User>();
+
+    for(Document doc : users.find()) {
+      if (limit-- == 0) break;
+      returnedUsers.add(Packer.unpackUser(doc));
     }
+    return returnedUsers;
+  }
 
-    /**
-     * Convert a Message to document form and store in messages collection
-     * @param message the message to store
-     */
-    public void write(Message message){
-        Document document = new Document("id", message.id)
-                .append("next", message.next)
-                .append("previous", message.previous)
-                .append("creation", message.creation)
-                .append("author", message.author)
-                .append("content", message.content);
-        messages.insertOne(document);
+  /**
+   * Return a collection of Messages from the Database
+   * @param limit the maximum number of messages in the collection
+   * @return an ArrayList of Users
+   */
+  public Collection<Message> getMessages(int limit) {
+    ArrayList<Message> returnedMessages = new ArrayList<Message>();
+
+    for (Document doc : messages.find()) {
+      if (limit -- == 0) break;
+      returnedMessages.add(Packer.unpackMessage(doc));
     }
+    return returnedMessages;
+  }
 
-    /**
-     * Convert a Message to Document form and store in conversations collections
-     * @param conversation the conversation to be stored
-     */
-    public void write(Conversation conversation){
-        Document document = new Document("id", conversation.id)
-                .append("owner", conversation.owner)
-                .append("creation", conversation.creation)
-                .append("title", conversation.title)
-                .append("users", conversation.users)
-                .append("firstMessage", conversation.firstMessage)
-                .append("lastMessage", conversation.lastMessage);
-        conversations.insertOne(document);
+  /**
+   * Return a collection of Conversations from the Database
+   * @param limit the maximum number of conversations int he collection
+   * @return
+   */
+  public Collection<Conversation> getConversations(int limit) {
+    ArrayList<Conversation> returnedConversation = new ArrayList<Conversation>();
+
+    for (Document doc : conversations.find()) {
+      if (limit -- == 0) break;
+      returnedConversation.add(Packer.unpackConversation(doc));
     }
-
-    /**
-     * Convert a User to Document form and store in users collection
-     * @param user the user to be stored
-     */
-    public void write(User user) {
-        Document document = new Document("id", user.id)
-                .append("name",user.name)
-                .append("creation", user.creation);
-        users.insertOne(document);
-    }
-
-    /**
-     * Return a collection of Users from the Database
-     * @param limit the maximum number of users in the collection
-     * @return an ArrayList of Users
-     */
-    public Collection<User> getUsers(int limit) {
-        ArrayList<User> returnedUsers = new ArrayList<User>();
-
-        for(Document doc : users.find()) {
-            if (limit-- == 0) break;
-            returnedUsers.add(docToUser(doc));
-        }
-        return returnedUsers;
-    }
-
-    /**
-     * Return a collection of Messages from the Database
-     * @param limit the maximum number of messages in the collection
-     * @return an ArrayList of Users
-     */
-    public Collection<Message> getMessages(int limit) {
-        ArrayList<Message> returnedMessages = new ArrayList<Message>();
-
-        for (Document doc : messages.find()) {
-            if (limit -- == 0) break;
-            returnedMessages.add(docToMessage(doc));
-        }
-        return returnedMessages;
-    }
-
-    /**
-     * Return a collection of Conversations from the Database
-     * @param limit the maximum number of conversations int he collection
-     * @return
-     */
-    public Collection<Conversation> getConversations(int limit) {
-        ArrayList<Conversation> returnedConversation = new ArrayList<Conversation>();
-
-        for (Document doc : conversations.find()) {
-            if (limit -- == 0) break;
-            returnedConversation.add(docToConversation(doc));
-        }
-        return returnedConversation;
-    }
-
-    /**
-     * Convert a Document to a Message object
-     * @param doc the Document to be converted
-     * @return A Message derived from doc
-     */
-    private Message docToMessage(Document doc){
-        return new Message(
-                (Uuid) doc.get("id"),
-                (Uuid) doc.get("next"),
-                (Uuid) doc.get("previous"),
-                (Time) doc.get("creation"),
-                (Uuid) doc.get("author"),
-                (String) doc.get("content")
-        );
-    }
-
-    /**
-     * Convert a Document to a User object
-     * @param doc the Document to be converted
-     * @return A User derived from doc
-     */
-    private User docToUser(Document doc) {
-        return new User(
-                (Uuid) doc.get("id"),
-                (String) doc.get("name"),
-                (Time) doc.get("time")
-        );
-    }
-
-    /**
-     * Covert a Document to a Conversation object
-     * @param doc the Document to be converted
-     * @return A Conversation derived from doc
-     */
-    private Conversation docToConversation(Document doc) {
-        return new Conversation(
-                (Uuid) doc.get("id"),
-                (Uuid) doc.get("owner"),
-                (Time) doc.get("creation"),
-                (String) doc.get("title")
-        );
-    }
+    return returnedConversation;
+  }
 }
