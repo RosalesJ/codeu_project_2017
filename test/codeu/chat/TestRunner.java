@@ -32,6 +32,7 @@ public final class TestRunner {
          );
       for (final Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
+         System.out.println(failure.getTrace());
       }
       System.out.println(result.wasSuccessful());
    }
