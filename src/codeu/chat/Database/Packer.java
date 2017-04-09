@@ -14,11 +14,11 @@ public class Packer {
    */
   public static Message unpackMessage(Document doc){
     return new Message(
-            (Uuid) doc.get("id"),
-            (Uuid) doc.get("next"),
-            (Uuid) doc.get("previous"),
-            (Time) doc.get("creation"),
-            (Uuid) doc.get("author"),
+            Uuid.fromString((String)doc.get("id")),
+            Uuid.fromString((String)doc.get("next")),
+            Uuid.fromString((String)doc.get("previous")),
+            Time.fromMs((Long)doc.get("creation")),
+            Uuid.fromString((String)doc.get("author")),
             (String) doc.get("content")
     );
   }
@@ -30,9 +30,9 @@ public class Packer {
    */
   public static User unpackUser(Document doc) {
     return new User(
-            (Uuid) doc.get("id"),
+            Uuid.fromString((String)doc.get("id")),
             (String) doc.get("name"),
-            (Time) doc.get("time")
+            Time.fromMs(((Long) doc.get("time")))
     );
   }
 
@@ -43,38 +43,38 @@ public class Packer {
    */
   public static Conversation unpackConversation(Document doc) {
     return new Conversation(
-            (Uuid) doc.get("id"),
-            (Uuid) doc.get("owner"),
-            (Time) doc.get("creation"),
+            Uuid.fromString((String) doc.get("id")),
+            Uuid.fromString((String) doc.get("owner")),
+            Time.fromMs((Long)doc.get("creation")),
             (String) doc.get("title")
     );
   }
 
   public static Document packMessage(Message message) {
-    Document document = new Document("id", message.id)
-            .append("next", message.next)
-            .append("previous", message.previous)
-            .append("creation", message.creation)
-            .append("author", message.author)
-            .append("content", message.content);
+    Document document = new Document("id", message.id.toString())
+            .append("next", message.next.toString())
+            .append("previous", message.previous.toString())
+            .append("creation", message.creation.inMs())
+            .append("author", message.author.toString())
+            .append("content", message.content.toString());
     return document;
   }
 
   public static Document packUser(User user) {
-    Document document = new Document("id", user.id)
-            .append("name",user.name)
-            .append("creation", user.creation);
+    Document document = new Document("id", user.id.toString())
+            .append("name", user.name)
+            .append("creation", user.creation.inMs());
     return document;
   }
 
   public static Document packConversation(Conversation conversation) {
-    Document document = new Document("id", conversation.id)
-            .append("owner", conversation.owner)
-            .append("creation", conversation.creation)
+    Document document = new Document("id", conversation.id.toString())
+            .append("owner", conversation.owner.toString())
+            .append("creation", conversation.creation.inMs())
             .append("title", conversation.title)
             .append("users", conversation.users)
-            .append("firstMessage", conversation.firstMessage)
-            .append("lastMessage", conversation.lastMessage);
+            .append("firstMessage", conversation.firstMessage.toString())
+            .append("lastMessage", conversation.lastMessage.toString());
     return document;
   }
 }
