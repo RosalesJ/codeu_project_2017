@@ -20,10 +20,13 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashSet;
 
+
 import codeu.chat.util.Serializer;
 import codeu.chat.util.Serializers;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
+import java.util.Objects;
+
 
 public final class Conversation {
 
@@ -68,7 +71,7 @@ public final class Conversation {
   public final Uuid owner;
   public final Time creation;
   public final String title;
-  public final Collection<Uuid> users = new HashSet<>();
+  public final Collection<Uuid> users = new HashSet<Uuid>();
   public Uuid firstMessage = Uuid.NULL;
   public Uuid lastMessage = Uuid.NULL;
 
@@ -80,6 +83,37 @@ public final class Conversation {
     this.title = title;
 
     this.summary = new ConversationSummary(id, owner, creation, title);
+  }
 
+  @Override
+  public int hashCode() { return id.hashCode(); }
+
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof Conversation && equals(this, (Conversation)o);
+  }
+
+  public static boolean equals(Conversation a, Conversation b) {
+    if (a == b) {
+      return true;
+    }
+
+    if ((a == null ^ b == null) ||
+            (a.id == null ^ b.id == null) ||
+            (a.owner == null ^ b.owner == null) ||
+            (a.creation == null ^ b.creation == null) ||
+            (a.title == null ^ b.creation == null)) {
+      return false;
+    }
+
+    if ((a.id == b.id || a.id.equals(b.id)) &&
+            (a.owner == b.owner || a.id.equals(b.id)) &&
+            (a.creation == b.creation || a.creation.equals(b.creation)) &&
+            (a.title == b.title || a.title.equals(b.title))
+            ) {
+      return true;
+    }
+
+    return false;
   }
 }

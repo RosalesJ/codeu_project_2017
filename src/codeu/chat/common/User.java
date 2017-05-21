@@ -53,10 +53,40 @@ public final class User {
   public final Time creation;
 
   public User(Uuid id, String name, Time creation) {
-
     this.id = id;
     this.name = name;
     this.creation = creation;
+  }
 
+  @Override
+  public int hashCode() {
+    return id.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof User && equals(this,(User)o);
+  }
+
+  public static boolean equals(User a, User b) {
+    if (a == b) {
+      return true;
+    }
+
+    if ((a == null ^ b == null) ||
+            (a.id == null ^ b.id == null) ||
+            (a.name == null ^ b.name == null) ||
+            (a.creation == null ^ b.creation == null)) {
+      return false;
+    }
+
+    if ((a.id == b.id || a.id.equals(b.id)) &&
+            (a.name == b.name || a.name.equals(b.name)) &&
+            (a.creation == b.creation || a.creation.equals(b.creation))
+            ) {
+      return true;
+    }
+
+    return false;
   }
 }

@@ -71,4 +71,45 @@ public final class Message {
     this.content = content;
 
   }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof Message && equals(this, (Message) o);
+  }
+
+  public static boolean equals(Message a, Message b) {
+    if (a == b) {
+      return true;
+    }
+
+    //checks if one is null and not the other
+    if ((a == null ^ b == null) ||
+            (a.id == null ^ b.id == null) ||
+            (a.next == null ^ b.id == null) ||
+            (a.previous == null ^ b.id == null) ||
+            (a.creation == null ^ b.creation == null) ||
+            (a.author == null ^ b.author == null) ||
+            (a.content == null ^ b.content == null)
+            ) {
+      return false;
+    }
+
+    //checks if all the fields are equal
+    if ((a.id == b.id || a.id.equals(b.id)) &&
+            (a.next == b.next || a.next.equals(b.next)) &&
+            (a.previous == b.previous || a.previous.equals(b.previous)) &&
+            (a.creation == b.creation || a.creation.equals(b.creation)) &&
+            (a.author == b.author || a.author.equals(b.author)) &&
+            (a.content == b.content || a.content.equals(b.content))
+            ) {
+      return true;
+    }
+
+    return false;
+  }
 }
