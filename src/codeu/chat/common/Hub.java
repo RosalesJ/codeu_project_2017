@@ -30,7 +30,7 @@ public final class Hub implements Runnable {
   // HANDLER
   //
   // The interface to define what work the HUB should do per connection. When
-  // a connection is availble, "handle" will be used. Exceptions do not need
+  // a connection is available, "handle" will be used. Exceptions do not need
   // to be handled by "handle". If there is an exception during execution,
   // "onException" will be called. Each connection should be considered
   // independent.
