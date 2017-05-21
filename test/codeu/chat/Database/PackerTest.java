@@ -1,11 +1,9 @@
 package codeu.chat.Database;
 
-import codeu.chat.common.BasicController;
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
-import codeu.chat.server.Controller;
-import codeu.chat.server.Model;
+import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
 import static org.junit.Assert.*;
 
@@ -22,19 +20,20 @@ import org.junit.Test;
  * packed message
  */
 public class PackerTest {
-  private Model model;
-  private BasicController controller;
+  private Message message;
+  private Conversation conversation;
+  private User user;
 
   @Before
   public void doBefore() {
-    model = new Model();
-    controller = new Controller(Uuid.NULL, model);
+    message = new Message(new Uuid(1),new Uuid(2),new Uuid(3), Time.now(), new Uuid(4),"Hello World");
+    conversation = new Conversation(new Uuid(5),new Uuid(6), Time.now(),"Hello world");
+    user = new User(new Uuid(7),"Mark", Time.now());
   }
 
 
   @Test
   public void testUnpackMessage() {
-    Message message = controller.newMessage(new Uuid(1),new Uuid(2),"Hello World");
     Message unpacked = Packer.unpackMessage(Packer.packMessage(message));
 
     assertTrue(message.equals(unpacked));
@@ -42,7 +41,6 @@ public class PackerTest {
 
   @Test
   public void testUnpackConversation() {
-    Conversation conversation = controller.newConversation("Hello world", Uuid.NULL);
     Conversation unpacked = Packer.unpackConversation(Packer.packConversation(conversation));
 
     assertTrue(conversation.equals(unpacked));
@@ -50,7 +48,6 @@ public class PackerTest {
 
   @Test
   public void testUnpackUser() {
-    User user = controller.newUser("Mark");
     User unpacked = Packer.unpackUser(Packer.packUser(user));
 
     assertTrue(user.equals(unpacked));
@@ -58,7 +55,7 @@ public class PackerTest {
 
   @Test
   public void testPackMessages() {
-    Document packed = Packer.packMessage(controller.newMessage(new Uuid(1),new Uuid(2),"Hello World"));
+    Document packed = Packer.packMessage(message);
     Document repacked = Packer.packMessage(Packer.unpackMessage(packed));
 
     assertTrue(repacked.equals(packed));
@@ -66,16 +63,16 @@ public class PackerTest {
 
   @Test
   public void testPackConversations() {
-    Document packed = Packer.packConversation(controller.newConversation("Hello world", Uuid.NULL));
-    Document repacked = Packer.packMessage(Packer.unpackMessage(packed));
+    Document packed = Packer.packConversation(conversation);
+    Document repacked = Packer.packConversation(Packer.unpackConversation(packed));
 
     assertTrue(repacked.equals(packed));
   }
 
   @Test
   public void testPackUsers() {
-    Document packed = Packer.packUser(controller.newUser("Mark"));
-    Document repacked = Packer.packMessage(Packer.unpackMessage(packed));
+    Document packed = Packer.packUser(user);
+    Document repacked = Packer.packUser(Packer.unpackUser(packed));
 
     assertTrue(repacked.equals(packed));
   }
