@@ -14,12 +14,12 @@
 
 package codeu.chat.server;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import codeu.chat.common.Relay;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 // NO OP RELAY
 //

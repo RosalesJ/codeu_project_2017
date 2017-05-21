@@ -14,11 +14,12 @@
 
 package codeu.chat.util.store;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Comparator;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.Before;
+import static org.junit.Assert.assertTrue;
 
 public final class StoreTest {
 

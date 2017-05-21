@@ -5,11 +5,11 @@ import codeu.chat.common.Message;
 import codeu.chat.common.User;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
-import static org.junit.Assert.*;
-
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Jacob Rosales Chase

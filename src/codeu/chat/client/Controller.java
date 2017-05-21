@@ -14,15 +14,7 @@
 
 package codeu.chat.client;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.Thread;
-
-import codeu.chat.common.BasicController;
-import codeu.chat.common.Conversation;
-import codeu.chat.common.Message;
-import codeu.chat.common.NetworkCode;
-import codeu.chat.common.User;
+import codeu.chat.common.*;
 import codeu.chat.util.Logger;
 import codeu.chat.util.Serializers;
 import codeu.chat.util.Uuid;

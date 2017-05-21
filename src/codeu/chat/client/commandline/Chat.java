@@ -14,13 +14,13 @@
 
 package codeu.chat.client.commandline;
 
-import java.util.Scanner;
-
 import codeu.chat.client.ClientContext;
 import codeu.chat.client.Controller;
 import codeu.chat.client.View;
 import codeu.chat.common.ConversationSummary;
 import codeu.chat.util.Logger;
+
+import java.util.Scanner;
 
 // Chat - top-level client application.
 public final class Chat {

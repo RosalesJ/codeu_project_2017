@@ -14,10 +14,10 @@
 
 package codeu.chat.common;
 
-import java.util.Collection;
-
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
+
+import java.util.Collection;
 
 // RELAY
 //

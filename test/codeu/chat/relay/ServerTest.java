@@ -14,15 +14,15 @@
 
 package codeu.chat.relay;
 
-import java.util.Collection;
-
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.Before;
-
 import codeu.chat.common.Relay;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
+import org.junit.Test;
+
+import java.util.Collection;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public final class ServerTest {
 

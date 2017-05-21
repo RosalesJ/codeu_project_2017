@@ -14,14 +14,14 @@
 
 package codeu.chat.client.simplegui;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.Border;
-
 import codeu.chat.client.ClientContext;
 import codeu.chat.client.Controller;
 import codeu.chat.client.View;
 import codeu.chat.util.Logger;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 // Chat - top-level client application - Java Simple GUI (using Java Swing)
 public final class ChatSimpleGui {

@@ -14,10 +14,12 @@
 
 package codeu.chat.common;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.Arrays;
-import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public final class SecretTest {
 

@@ -15,28 +15,16 @@
 
 package codeu.chat.server;
 
+import codeu.chat.Database.Database;
+import codeu.chat.common.*;
+import codeu.chat.util.*;
+import codeu.chat.util.connections.Connection;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Arrays;
 import java.util.Collection;
-
-import codeu.chat.Database.Database;
-import codeu.chat.common.Conversation;
-import codeu.chat.common.ConversationSummary;
-import codeu.chat.common.LinearUuidGenerator;
-import codeu.chat.common.Message;
-import codeu.chat.common.NetworkCode;
-import codeu.chat.common.Relay;
-import codeu.chat.common.User;
-import codeu.chat.util.Logger;
-import codeu.chat.util.Serializers;
-import codeu.chat.util.Time;
-import codeu.chat.util.Timeline;
-import codeu.chat.util.Uuid;
-import codeu.chat.util.connections.Connection;
 
 public final class Server {
 

@@ -14,30 +14,14 @@
 
 package codeu.chat.server;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-
-import codeu.chat.common.BasicView;
-import codeu.chat.common.Conversation;
-import codeu.chat.common.ConversationSummary;
-import codeu.chat.common.LogicalView;
-import codeu.chat.common.Message;
-import codeu.chat.common.SinglesView;
-import codeu.chat.common.User;
+import codeu.chat.common.*;
 import codeu.chat.util.Logger;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
 import codeu.chat.util.store.StoreAccessor;
+
+import java.util.*;
+import java.util.regex.Pattern;
 
 public final class View implements BasicView, LogicalView, SinglesView {
 

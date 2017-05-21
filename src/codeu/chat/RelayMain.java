@@ -14,10 +14,6 @@
 
 package codeu.chat;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import codeu.chat.common.Secret;
 import codeu.chat.relay.Server;
 import codeu.chat.relay.ServerFrontEnd;
@@ -27,6 +23,10 @@ import codeu.chat.util.Uuid;
 import codeu.chat.util.connections.Connection;
 import codeu.chat.util.connections.ConnectionSource;
 import codeu.chat.util.connections.ServerConnectionSource;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 final class RelayMain {
 

@@ -14,15 +14,15 @@
 
 package codeu.chat.server;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.Before;
-
 import codeu.chat.common.BasicController;
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
 import codeu.chat.util.Uuid;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
 
 public final class BasicControllerTest {
 

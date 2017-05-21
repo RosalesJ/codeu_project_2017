@@ -14,15 +14,15 @@
 
 package codeu.chat;
 
-import java.io.IOException;
-
 import codeu.chat.client.Controller;
-import codeu.chat.client.simplegui.ChatSimpleGui;
 import codeu.chat.client.View;
+import codeu.chat.client.simplegui.ChatSimpleGui;
 import codeu.chat.util.Logger;
 import codeu.chat.util.RemoteAddress;
 import codeu.chat.util.connections.ClientConnectionSource;
 import codeu.chat.util.connections.ConnectionSource;
+
+import java.io.IOException;
 
 final class SimpleGuiClientMain {
 

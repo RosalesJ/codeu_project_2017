@@ -14,16 +14,17 @@
 
 package codeu.chat.server;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.Before;
-
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.RawController;
 import codeu.chat.common.User;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public final class RawControllerTest {
 

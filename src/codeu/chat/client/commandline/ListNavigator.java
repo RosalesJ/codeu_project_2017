@@ -14,13 +14,11 @@
 
 package codeu.chat.client.commandline;
 
-import java.lang.Math;
+import codeu.chat.common.ListViewable;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
-
-import codeu.chat.common.ListViewable;
 
 // Page up and down through a list of objects and allow user to select one.
 // T must implement ListViewable. This gives access to listView(), which produces

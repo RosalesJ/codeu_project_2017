@@ -14,15 +14,15 @@
 
 package codeu.chat.client.simplegui;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-
 import codeu.chat.client.ClientContext;
 import codeu.chat.common.ConversationSummary;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // NOTE: JPanel is serializable, but there is no need to serialize MessagePanel
 // without the @SuppressWarnings, the compiler will complain of no override for serialVersionUID

@@ -16,11 +16,10 @@ package codeu.chat.Database;
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
-import org.bson.Document;
-
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Collection;

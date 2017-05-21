@@ -1,9 +1,10 @@
 package codeu.chat.Database;
-import codeu.chat.util.Time;
-import codeu.chat.util.Uuid;
+
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
+import codeu.chat.util.Time;
+import codeu.chat.util.Uuid;
 import org.bson.Document;
 
 import java.io.IOException;
