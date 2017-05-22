@@ -17,12 +17,18 @@ import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
 import codeu.chat.common.User;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoQueryException;
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Jacob Rosales Chase
@@ -39,6 +45,9 @@ public class Database {
 
 
   public Database(String path){
+    //silence console output
+    Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
+
     mongoClient = new MongoClient();
     database = mongoClient.getDatabase(path);
 
@@ -51,24 +60,120 @@ public class Database {
    * Convert a Message to document form and store in messages collection
    * @param message the message to store
    */
-  public void write(Message message){
-    messages.insertOne(Packer.packMessage(message));
+  public boolean write(Message message){
+    try {
+      messages.insertOne(Packer.packMessage(message));
+    }
+    catch (Exception e) {
+      return false;
+    }
+    return true;
   }
 
   /**
    * Convert a Message to Document form and store in conversations collections
    * @param conversation the conversation to be stored
    */
-  public void write(Conversation conversation){
-    conversations.insertOne(Packer.packConversation(conversation));
+  public boolean write(Conversation conversation){
+    try {
+      conversations.insertOne(Packer.packConversation(conversation));
+    }
+    catch (Exception e) {
+      return false;
+    }
+    return true;
   }
 
   /**
    * Convert a User to Document form and store in users collection
    * @param user the user to be stored
    */
-  public void write(User user) {
-    users.insertOne(Packer.packUser(user));
+  public boolean write(User user) {
+    try {
+      users.insertOne(Packer.packUser(user));
+    }
+    catch (Exception e) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean removeMessage(String id) {
+    boolean result;
+    try {
+      result = messages.deleteOne(Filters.eq("id", id)).getDeletedCount() == 1 ? true : false;
+    }
+    catch (MongoWriteException e) {
+      return false;
+    }
+    return result;
+  }
+
+  public boolean removeConversation(String id) {
+    boolean result;
+    try {
+      result = conversations.deleteOne(Filters.eq("id", id)).getDeletedCount() == 1 ? true : false;
+    }
+    catch (MongoWriteException e) {
+      return false;
+    }
+    return result;
+  }
+
+  public boolean removeUser(String id) {
+    boolean result;
+    try {
+      result = users.deleteOne(Filters.eq("id", id)).getDeletedCount() == 1 ? true : false;
+    }
+    catch (MongoWriteException e) {
+      return false;
+    }
+    return result;
+  }
+
+  public Collection<User> findUser(String identifier) {
+    try {
+      List<User> foundUsers = new ArrayList<User>();
+      Iterable<Document> foundDocs = users.find(Filters.text(identifier));
+
+      for(Document doc : foundDocs) {
+        foundUsers.add(Packer.unpackUser(doc));
+      }
+      return foundUsers;
+    }
+    catch (MongoQueryException e) {
+      return new ArrayList<User>();
+    }
+  }
+
+  public Collection<Message> findMessage(String identifier) {
+    try {
+      Iterable<Document> foundDocs= messages.find(Filters.text(identifier));
+      List<Message> foundMessages = new ArrayList<Message>();
+
+      for(Document doc : foundDocs) {
+        foundMessages.add(Packer.unpackMessage(doc));
+      }
+      return foundMessages;
+    }
+    catch (MongoQueryException e) {
+      return new ArrayList<Message>();
+    }
+  }
+
+  public Collection<Conversation> findConversation(String identifier) {
+    try {
+      Iterable<Document> foundDocs = conversations.find(Filters.text(identifier));
+      List<Conversation> foundConversations = new ArrayList<Conversation>();
+
+      for(Document doc : foundDocs) {
+        foundConversations.add(Packer.unpackConversation(doc));
+      }
+      return foundConversations;
+    }
+    catch (MongoQueryException e) {
+      return new ArrayList<Conversation>();
+    }
   }
 
   /**
