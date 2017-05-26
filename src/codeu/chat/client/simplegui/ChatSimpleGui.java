@@ -39,7 +39,6 @@ public final class ChatSimpleGui {
 
   // Run the GUI client
   public void run() {
-
     try {
 
       initialize();
