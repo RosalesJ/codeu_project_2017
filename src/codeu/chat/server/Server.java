@@ -47,8 +47,10 @@ public final class Server {
   private final Relay relay;
   private Uuid lastSeen = Uuid.NULL;
 
-
+  
   public Server(Uuid id, byte[] secret, Relay relay) {
+
+
     this.id = id;
     this.secret = Arrays.copyOf(secret, secret.length);
 
