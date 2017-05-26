@@ -14,30 +14,14 @@
 
 package codeu.chat.server;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-
-import codeu.chat.common.BasicView;
-import codeu.chat.common.Conversation;
-import codeu.chat.common.ConversationSummary;
-import codeu.chat.common.LogicalView;
-import codeu.chat.common.Message;
-import codeu.chat.common.SinglesView;
-import codeu.chat.common.User;
+import codeu.chat.common.*;
 import codeu.chat.util.Logger;
 import codeu.chat.util.Time;
 import codeu.chat.util.Uuid;
 import codeu.chat.util.store.StoreAccessor;
+
+import java.util.*;
+import java.util.regex.Pattern;
 
 public final class View implements BasicView, LogicalView, SinglesView {
 
@@ -61,7 +45,7 @@ public final class View implements BasicView, LogicalView, SinglesView {
     final Collection<ConversationSummary> summaries = new ArrayList<>();
 
     for (final Conversation conversation : model.conversationById().all()) {
-        summaries.add(conversation.summary);
+      summaries.add(conversation.summary);
     }
 
     return summaries;
@@ -96,6 +80,19 @@ public final class View implements BasicView, LogicalView, SinglesView {
     }
 
     return users;
+  }
+
+
+  public Collection<Conversation> getConversation(Uuid userID) {
+    final Collection<Conversation> convos = new ArrayList<Conversation>();
+
+    for(Conversation convo : model.conversationById().all()) {
+      if (convo.owner.equals(userID)) {
+        convos.add(convo);
+      }
+    }
+
+    return convos;
   }
 
   @Override
@@ -133,8 +130,8 @@ public final class View implements BasicView, LogicalView, SinglesView {
     final List<Message> foundMessages = new ArrayList<>();
 
     Message current = (foundConversation == null) ?
-        null :
-        model.messageById().first(foundConversation.firstMessage);
+            null :
+            model.messageById().first(foundConversation.firstMessage);
 
     while (current != null && current.creation.compareTo(start) < 0) {
       current = model.messageById().first(current.next);
@@ -180,6 +177,18 @@ public final class View implements BasicView, LogicalView, SinglesView {
     }
 
     return found;
+  }
+
+  public Collection<Message> getMessages(Uuid UserID) {
+    final Collection<Message> messages = new ArrayList<Message>();
+
+    for(Message message : model.messageById().all()) {
+      if(message.author.equals(UserID)) {
+        messages.add(message);
+      }
+    }
+
+    return messages;
   }
 
   @Override
