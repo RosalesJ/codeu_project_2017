@@ -16,9 +16,12 @@
 package codeu.chat.server;
 
 import codeu.chat.Database.Database;
+import codeu.chat.Database.Packer;
 import codeu.chat.common.*;
 import codeu.chat.util.*;
 import codeu.chat.util.connections.Connection;
+import com.mongodb.client.model.Filters;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,6 +96,31 @@ public final class Server {
     });
   }
 
+  public User login(String username, String password) {
+    Collection<User> users = database.findUser(username);
+    if(!users.isEmpty()) {
+      Iterable<Document> foundDocs = database.users.find(Filters.text(username));
+
+      for(Document doc : foundDocs) {
+        if (password.equals(doc.get("password"))) {
+          return Packer.unpackUser(doc);
+        }
+      }
+    }
+    return null;
+  }
+
+  public User signup(String username, String password) {
+    Collection<User> users = database.findUser(username);
+    if(users.isEmpty()) {
+      User user = controller.newUser(username);
+      if(database.writeUser(user,password)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
   public void handleConnection(final Connection connection) {
     timeline.scheduleNow(new Runnable() {
       @Override
@@ -136,7 +164,7 @@ public final class Server {
       Serializers.INTEGER.write(out, NetworkCode.NEW_MESSAGE_RESPONSE);
       Serializers.nullable(Message.SERIALIZER).write(out, message);
 
-      database.write(message);
+      database.writeMessage(message);
 
       timeline.scheduleNow(createSendToRelayEvent(
           author,
@@ -152,7 +180,6 @@ public final class Server {
       Serializers.INTEGER.write(out, NetworkCode.NEW_USER_RESPONSE);
       Serializers.nullable(User.SERIALIZER).write(out, user);
 
-      database.write(user);
     } else if (type == NetworkCode.NEW_CONVERSATION_REQUEST) {
 
       final String title = Serializers.STRING.read(in);
@@ -163,7 +190,7 @@ public final class Server {
       Serializers.INTEGER.write(out, NetworkCode.NEW_CONVERSATION_RESPONSE);
       Serializers.nullable(Conversation.SERIALIZER).write(out, conversation);
 
-      database.write(conversation);
+      database.writeConversation(conversation);
     } else if (type == NetworkCode.GET_USERS_BY_ID_REQUEST) {
 
       final Collection<Uuid> ids = Serializers.collection(Uuid.SERIALIZER).read(in);
