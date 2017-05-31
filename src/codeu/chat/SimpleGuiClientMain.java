@@ -38,7 +38,7 @@ final class SimpleGuiClientMain {
 
     LOG.info("============================= START OF LOG =============================");
 
-    LOG.info("Starting chat client...");
+    LOG.info("Starting chatpanel client...");
 
     // Start up server connection/interface.
 
@@ -68,6 +68,6 @@ final class SimpleGuiClientMain {
 
     chatSimpleGui.run();
 
-    LOG.info("chat client is running.");
+    LOG.info("chatpanel client is running.");
   }
 }

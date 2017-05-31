@@ -33,7 +33,7 @@ public final class Logger {
   }
 
   private static final java.util.logging.Logger logger =
-      java.util.logging.Logger.getLogger("codeu.chat");
+      java.util.logging.Logger.getLogger("codeu.chatpanel");
 
   static {
     logger.setLevel(java.util.logging.Level.INFO);

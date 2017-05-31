@@ -3,46 +3,46 @@ package codeu.chat.client.gui;
 import codeu.chat.client.ClientContext;
 import codeu.chat.client.Controller;
 import codeu.chat.client.View;
+import codeu.chat.client.gui.sidepanel.SidePanel;
 import codeu.chat.util.Logger;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
 
-import javax.swing.*;
-import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by GNPMobile on 4/9/17.
  *
  * Borrowed heavily from the SimpleChatGui class.
  */
-public final class Gui {
+public final class Gui extends BorderPane implements Initializable {
     private final static Logger.Log LOG = Logger.newLog(Gui.class);
 
-    private JFrame frame;
     private final ClientContext context;
 
+    @FXML
+    private SidePanel sidePanel;
+
     public Gui(Controller controller, View view) {
-        // Set up context
         context = new ClientContext(controller, view);
-    }
 
-    private void initialize() {
-        // Set up GUI
-        frame = new JFrame("24 Chat");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(800, 600));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
 
-        // Add components
-
-        frame.pack();
-    }
-
-    public void run() {
         try {
-            initialize();
-            frame.setVisible(true);
-        } catch (Exception e) {
-            System.out.println("ERROR: Exception in Gui.run. Check log for details.");
-            LOG.error(e, "Exception in Gui.run");
-            System.exit(1);
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        sidePanel.setContext(context);
     }
 }

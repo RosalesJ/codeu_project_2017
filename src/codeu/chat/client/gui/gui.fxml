@@ -1,0 +1,10 @@
+<?import codeu.chat.client.gui.sidepanel.SidePanel?>
+<?import codeu.chat.client.gui.chatpanel.ChatPanel?>
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml">
+    <left>
+        <SidePanel fx:id="sidePanel"></SidePanel>
+    </left>
+    <center>
+        <ChatPanel></ChatPanel>
+    </center>
+</fx:root>
