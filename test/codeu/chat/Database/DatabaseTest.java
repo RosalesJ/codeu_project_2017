@@ -67,7 +67,7 @@ public final class DatabaseTest {
     int i = 0;
     for (Message m : messages) {
       assertTrue(database.messages.count() == i);
-      assertTrue(database.write(m));
+      assertTrue(database.writeMessage(m));
       assertTrue(database.messages.count() == i + 1);
       i++;
     }
@@ -78,7 +78,7 @@ public final class DatabaseTest {
     int i = 0;
     for (Conversation c : conversations) {
       assertTrue(database.conversations.count() == i);
-      assertTrue(database.write(c));
+      assertTrue(database.writeConversation(c));
       assertTrue(database.conversations.count() == i + 1);
       i++;
     }
@@ -89,7 +89,7 @@ public final class DatabaseTest {
     int i = 0;
     for (User u : users) {
       assertTrue(database.users.count() == i);
-      assertTrue(database.write(u));
+      assertTrue(database.writeUser(u,"nothing"));
       assertTrue(database.users.count() == i + 1);
       i++;
     }
@@ -98,7 +98,7 @@ public final class DatabaseTest {
   @Test
   public void testFindMessage() {
     for (Message m : messages) {
-      database.write(m);
+      database.writeMessage(m);
     }
     assertTrue(database.findMessage("not a message").isEmpty());
 
@@ -117,7 +117,7 @@ public final class DatabaseTest {
   @Test
   public void testFindConversation() {
     for (Conversation m : conversations) {
-      database.write(m);
+      database.writeConversation(m);
     }
     assertTrue(database.findConversation("not a convo").isEmpty());
 
@@ -136,7 +136,7 @@ public final class DatabaseTest {
   @Test
   public void testFindUser() {
     for (User m : users) {
-      database.write(m);
+      database.writeUser(m,"nothing");
     }
     assertTrue(database.findUser("not a user").isEmpty());
     Collection<User> found;
@@ -154,7 +154,7 @@ public final class DatabaseTest {
   @Test
   public void testRemoveMessage() {
     for (Message m : messages) {
-      database.write(m);
+      database.writeMessage(m);
     }
     assertFalse("Remove an item that doesn't exist",database.removeMessage("not a message"));
     for(int i = 0; i < 3; i++) {
@@ -168,7 +168,7 @@ public final class DatabaseTest {
   @Test
   public void testRemoveConversation() {
     for (Conversation m : conversations) {
-      database.write(m);
+      database.writeConversation(m);
     }
     assertFalse("Remove an item that doesn't exist",database.removeConversation("10000"));
 
@@ -183,7 +183,7 @@ public final class DatabaseTest {
   @Test
   public void testRemoveUser() {
     for (User m : users) {
-      database.write(m);
+      database.writeUser(m,"nothing");
     }
     assertFalse("Remove an item that doesn't exist",database.removeUser("100000"));
     for(int i = 0; i < 3; i++) {

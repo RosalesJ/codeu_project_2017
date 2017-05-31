@@ -60,7 +60,7 @@ public class Database {
    * Convert a Message to document form and store in messages collection
    * @param message the message to store
    */
-  public boolean write(Message message){
+  public boolean writeMessage(Message message){
     try {
       messages.insertOne(Packer.packMessage(message));
     }
@@ -74,7 +74,7 @@ public class Database {
    * Convert a Message to Document form and store in conversations collections
    * @param conversation the conversation to be stored
    */
-  public boolean write(Conversation conversation){
+  public boolean writeConversation(Conversation conversation){
     try {
       conversations.insertOne(Packer.packConversation(conversation));
     }
@@ -88,9 +88,10 @@ public class Database {
    * Convert a User to Document form and store in users collection
    * @param user the user to be stored
    */
-  public boolean write(User user) {
+  public boolean writeUser(User user, String password) {
     try {
-      users.insertOne(Packer.packUser(user));
+      Document doc = Packer.packUser(user).append("password", password);
+      users.insertOne(doc);
     }
     catch (Exception e) {
       return false;
