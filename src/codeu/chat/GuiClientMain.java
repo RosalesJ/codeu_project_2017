@@ -7,33 +7,44 @@ import codeu.chat.util.Logger;
 import codeu.chat.util.RemoteAddress;
 import codeu.chat.util.connections.ClientConnectionSource;
 import codeu.chat.util.connections.ConnectionSource;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by GNPMobile on 5/19/17.
  *
  * Borrowed heavily from SimpleGuiClientMain.
  */
-public class GuiClientMain {
+public class GuiClientMain extends Application {
 
     private static final Logger.Log LOG = Logger.newLog(GuiClientMain.class);
 
-    private static void runClient(Controller controller, View view) {
+    private static Gui gui;
 
-        final Gui gui = new Gui(controller, view);
-
+    private static void runClient(String[] args, Controller controller, View view) {
         LOG.info("Created client");
 
-        gui.run();
+        try {
+            gui = new Gui(controller, view);
+            launch(args);
+        } catch (Exception e) {
+            System.out.println("ERROR: Exception in Gui.run. Check log for details.");
+            LOG.error("Exception launching GUI: " + e.getMessage());
+            System.exit(1);
+        }
 
         LOG.info("Gui chat client is running.");
     }
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         try {
-            Logger.enableFileOutput("chat_simple_gui_client_log.log");
+            Logger.enableFileOutput("chat_gui_client_log.log");
         } catch (IOException ex) {
             LOG.error(ex, "Failed to set logger to write to file");
         }
@@ -46,6 +57,8 @@ public class GuiClientMain {
 
         final RemoteAddress address = RemoteAddress.parse(args[0]);
 
+        LOG.info(String.format("Connecting to %s@%s...", address.host, address.port));
+
         try (
                 final ConnectionSource source = new ClientConnectionSource(address.host, address.port)
         ) {
@@ -54,11 +67,22 @@ public class GuiClientMain {
 
             LOG.info("Creating GUI client...");
 
-            runClient(controller, view);
+            runClient(args, controller, view);
 
         } catch (Exception ex) {
             System.out.println("ERROR: Exception setting up GUI client. Check log for details.");
             LOG.error(ex, "Exception setting up client.");
         }
+    }
+
+    @Override
+    public void start(Stage primary) {
+        primary.setTitle("24 Chat");
+
+        StackPane root = new StackPane();
+        root.getChildren().add(gui);
+        primary.setScene(new Scene(root, 800, 600));
+
+        primary.show();
     }
 }

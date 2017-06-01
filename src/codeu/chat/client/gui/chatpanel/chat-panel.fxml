@@ -1,0 +1,4 @@
+<?import javafx.scene.control.Label?>
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
+    <Label text="I am a message. I am many characters long. I must finish this GUI." />
+</fx:root>

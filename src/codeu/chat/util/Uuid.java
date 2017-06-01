@@ -74,11 +74,11 @@ public final class Uuid {
   //
   // This interface defines the inteface used for any class that will
   // create Uuids. It is nested in here as for naming reasons. The two
-  // options was to have it sit along side Uuid can be called UuidGenerator
+  // options was to have it sit along sidepanel Uuid can be called UuidGenerator
   // or to scope it inside of Uuid so that it would be called Uuid.Generator.
   //
   // As the generator is in a way a replacement for a constructor, it felt
-  // better to place it inside the Uuid rather than have it side equal to
+  // better to place it inside the Uuid rather than have it sidepanel equal to
   // Uuid.
   public interface Generator {
     Uuid make();

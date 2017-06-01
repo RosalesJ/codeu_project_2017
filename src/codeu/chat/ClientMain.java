@@ -39,7 +39,7 @@ final class ClientMain {
 
     LOG.info("============================= START OF LOG =============================");
 
-    LOG.info("Starting chat client...");
+    LOG.info("Starting chatpanel client...");
 
     final RemoteAddress address = RemoteAddress.parse(args[0]);
 
@@ -60,6 +60,6 @@ final class ClientMain {
 
     input.close();
 
-    LOG.info("chat client has exited.");
+    LOG.info("chatpanel client has exited.");
   }
 }

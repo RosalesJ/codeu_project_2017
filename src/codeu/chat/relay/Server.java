@@ -108,13 +108,13 @@ public final class Server implements Relay {
   //             history. If it repeats an id its not a problem.
   //
   //   Point B : The chance that the history would be so long that an id could
-  //             be reused and appear along side's twin is way too small. The
+  //             be reused and appear along sidepanel's twin is way too small. The
   //             range for the ids is 1 to MAX INT (32 bit signed). This means
   //             that there would need to be 2147483646 messages in memory. If
   //             each message was 160 bytes long the relay server would need
   //             over 319 GB of ram.
   //
-  // As a side note, the ids start at 1 and not 0 to avoid the first id from
+  // As a sidepanel note, the ids start at 1 and not 0 to avoid the first id from
   // matching the NULL id which is defined as (null, 0);
 
  private final Uuid.Generator idGenerator = new LinearUuidGenerator(null, 1, Integer.MAX_VALUE);
