@@ -1,13 +1,19 @@
 package codeu.chat.client.gui.sidepanel;
 
 import codeu.chat.client.ClientContext;
+import codeu.chat.client.ClientConversation;
 import codeu.chat.common.ConversationSummary;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
 /**
+ * Meant to mimic the SidePanel of Slack!
+ *
  * Created by GNPMobile on 5/30/17.
  */
 public class SidePanel extends VBox {
@@ -23,13 +29,40 @@ public class SidePanel extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
+        this.setMinWidth(150);
     }
 
     private void update() {
+        // Reset labels (besides header label)
+        if (this.getChildren().size() > 1) this.getChildren().remove(1, this.getChildren().size());
+
+        // Update labels and add them back
         context.conversation.updateAllConversations(false);
 
+        // Get curr ConversationSummary
+        ConversationSummary curr = context.conversation.getCurrent();
         for (ConversationSummary s : context.conversation.getConversationSummaries()) {
-            System.out.println(s);
+            Label l = new Label(s.listView());
+            l.getProperties().put("summary", s);
+            l.getStyleClass().add("conversation");
+            if ((curr != null) && (curr.id.equals(s.id))) l.getStyleClass().add("selected");
+
+            // Click Handler
+            l.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent m) -> {
+                // Update current ConversationSummary
+                context.conversation.setCurrent(
+                        (ConversationSummary)((Node) m.getSource()).getProperties().get("summary")
+                );
+
+                // Update SidePanel
+                update();
+
+                // Generate ActionEvent for Gui to handle
+            });
+
+            // Add to SidePanel
+            this.getChildren().add(l);
         }
     }
 
