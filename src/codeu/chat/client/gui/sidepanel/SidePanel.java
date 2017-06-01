@@ -2,6 +2,7 @@ package codeu.chat.client.gui.sidepanel;
 
 import codeu.chat.client.ClientContext;
 import codeu.chat.client.ClientConversation;
+import codeu.chat.client.gui.events.ConversationChangeEvent;
 import codeu.chat.common.ConversationSummary;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -59,6 +60,7 @@ public class SidePanel extends VBox {
                 update();
 
                 // Generate ActionEvent for Gui to handle
+                this.fireEvent(new ConversationChangeEvent());
             });
 
             // Add to SidePanel
