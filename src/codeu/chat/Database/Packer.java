@@ -24,12 +24,14 @@ public class Packer {
     Uuid next = null;
     Uuid previous = null;
     Uuid author = null;
+    Uuid conversation = null;
 
     try {
       id = Uuid.parse((String)doc.get("id"));
       next = Uuid.parse((String)doc.get("next"));
       previous = Uuid.parse((String)doc.get("previous"));
       author = Uuid.parse((String)doc.get("author"));
+      conversation = Uuid.parse((String)doc.get("conversation"));
     }
     catch(IOException e) {
       System.out.println("Bad Uuid");
@@ -43,7 +45,8 @@ public class Packer {
             previous,
             Time.fromMs(creation == null ? 0 : creation),
             author,
-            (String) doc.get("content")
+            (String) doc.get("content"),
+            conversation
     );
   }
 
@@ -110,13 +113,15 @@ public class Packer {
     Long creation = (message.creation == null) ? null : message.creation.inMs();
     String author = (message.author == null) ? null : message.author.toString();
     String content = (message.content == null) ? null : message.content.toString();
+    String conversation = (message.conversation == null) ? null : message.conversation.toString();
 
     Document document = new Document("id", message.id.toString())
             .append("next", next)
             .append("previous", previous)
             .append("creation", creation)
             .append("author", author)
-            .append("content", content);
+            .append("content", content)
+            .append("conversation",conversation);
     return document;
   }
 

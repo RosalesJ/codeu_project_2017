@@ -36,6 +36,7 @@ public final class Message {
       Time.SERIALIZER.write(out, value.creation);
       Uuid.SERIALIZER.write(out, value.author);
       Serializers.STRING.write(out, value.content);
+      Uuid.SERIALIZER.write(out, value.conversation);
 
     }
 
@@ -48,7 +49,8 @@ public final class Message {
           Uuid.SERIALIZER.read(in),
           Time.SERIALIZER.read(in),
           Uuid.SERIALIZER.read(in),
-          Serializers.STRING.read(in)
+          Serializers.STRING.read(in),
+          Uuid.SERIALIZER.read(in)
       );
 
     }
@@ -60,8 +62,9 @@ public final class Message {
   public final Uuid author;
   public final String content;
   public Uuid next;
+  public Uuid conversation;
 
-  public Message(Uuid id, Uuid next, Uuid previous, Time creation, Uuid author, String content) {
+  public Message(Uuid id, Uuid next, Uuid previous, Time creation, Uuid author, String content, Uuid conversation) {
 
     this.id = id;
     this.next = next;
@@ -69,6 +72,7 @@ public final class Message {
     this.creation = creation;
     this.author = author;
     this.content = content;
+    this.conversation = conversation;
 
   }
 
@@ -94,7 +98,8 @@ public final class Message {
             (a.previous == null ^ b.id == null) ||
             (a.creation == null ^ b.creation == null) ||
             (a.author == null ^ b.author == null) ||
-            (a.content == null ^ b.content == null)
+            (a.content == null ^ b.content == null) ||
+            (a.conversation == null ^ b.conversation == null)
             ) {
       return false;
     }
@@ -105,7 +110,8 @@ public final class Message {
             (a.previous == b.previous || a.previous.equals(b.previous)) &&
             (a.creation == b.creation || a.creation.equals(b.creation)) &&
             (a.author == b.author || a.author.equals(b.author)) &&
-            (a.content == b.content || a.content.equals(b.content))
+            (a.content == b.content || a.content.equals(b.content)) &&
+            (a.conversation == b.conversation || a.conversation.equals(b.conversation))
             ) {
       return true;
     }

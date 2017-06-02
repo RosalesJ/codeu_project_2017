@@ -26,7 +26,7 @@ public class PackerTest {
 
   @Before
   public void doBefore() {
-    message = new Message(new Uuid(1),new Uuid(2),new Uuid(3), Time.now(), new Uuid(4),"Hello World");
+    message = new Message(new Uuid(1),new Uuid(2),new Uuid(3), Time.now(), new Uuid(4),"Hello World", new Uuid(39));
     conversation = new Conversation(new Uuid(5),new Uuid(6), Time.now(),"Hello world");
     user = new User(new Uuid(7),"Mark", Time.now());
   }

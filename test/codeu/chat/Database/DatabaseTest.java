@@ -49,7 +49,7 @@ public final class DatabaseTest {
     conversations = new ArrayList<Conversation>();
 
     for(int i = 0; i < 3; i ++) {
-      messages.add(new Message(new Uuid(i), new Uuid(i*10), new Uuid(i*100), Time.now(), new Uuid(i*1000), "Hello World" + i));
+      messages.add(new Message(new Uuid(i), new Uuid(i*10), new Uuid(i*100), Time.now(), new Uuid(i*1000), "Hello World" + i, new Uuid(i*10000)));
       conversations.add(new Conversation(new Uuid(i), new Uuid(i*10), Time.now(), "convo" + i));
       users.add(new User(new Uuid(i), "user" + i, Time.now()));
     }
