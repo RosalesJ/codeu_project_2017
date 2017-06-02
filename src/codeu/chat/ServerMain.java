@@ -65,13 +65,20 @@ final class ServerMain {
                                        RemoteAddress.parse(args[4]) :
                                        null;
 
+
     try (
         final ConnectionSource serverSource = ServerConnectionSource.forPort(myPort);
         final ConnectionSource relaySource = relayAddress == null ? null : new ClientConnectionSource(relayAddress.host, relayAddress.port)
     ) {
+      LOG.info("Starting DB");
+      Runtime rt = Runtime.getRuntime();
+      Process db = rt.exec("mongod");
 
       LOG.info("Starting server...");
       runServer(id, secret, serverSource, relaySource);
+
+      LOG.info("Ending server");
+      db.destroy();
 
     } catch (IOException ex) {
 
