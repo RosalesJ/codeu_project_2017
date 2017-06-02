@@ -66,15 +66,15 @@ public final class Server {
 
     LOG.info("Loading users");
     for (User user : database.getUsers(100)) {
-      controller.newUser(user.id,user.name,user.creation);
+      controller.newUser(user.id, user.name, user.creation);
     }
     LOG.info("Loading conversations");
     for (Conversation conversation : database.getConversations(100)) {
-      controller.newConversation(conversation.id,conversation.title,conversation.owner,conversation.creation);
+      controller.newConversation(conversation.id, conversation.title, conversation.owner, conversation.creation);
     }
     LOG.info("Loading messages");
     for (Message message : database.getMessages(1000)){
-      controller.newMessage(message.id,message.author,model.conversationById().all().iterator().next().id,message.content,message.creation);
+      controller.newMessage(message.id, message.author, message.conversation, message.content, message.creation);
     }
 
 
