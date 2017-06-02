@@ -1,0 +1,15 @@
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value="@message.css"></URL>
+    </stylesheets>
+    <HBox styleClass="row">
+        <Label fx:id="author" styleClass="author" />
+        <Label fx:id="time" styleClass="time" />
+    </HBox>
+    <HBox styleClass="row">
+        <Label fx:id="message" styleClass="message" />
+    </HBox>
+</fx:root>

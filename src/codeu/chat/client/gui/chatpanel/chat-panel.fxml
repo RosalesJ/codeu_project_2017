@@ -1,4 +1,8 @@
-<?import javafx.scene.control.Label?>
-<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
-    <Label text="I am a message. I am many characters long. I must finish this GUI." />
+<?import codeu.chat.client.gui.messagespanel.MessagesPanel?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" styleClass="chat-panel">
+    <stylesheets>
+        <URL value="@chat-panel.css"></URL>
+    </stylesheets>
+    <MessagesPanel fx:id="messagesPanel" />
 </fx:root>

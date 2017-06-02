@@ -29,7 +29,7 @@ public interface BasicController {
   //
   //   Create a new message on the server. All parameters must be provided
   //   or else the server won't apply the change. If the operation is
-  //   successful, a Message object will be returned representing the full
+  //   successful, a MessageComp object will be returned representing the full
   //   state of the message on the server.
   Message newMessage(Uuid author, Uuid conversation, String body);
 

@@ -145,7 +145,7 @@ public final class MessagePanel extends JPanel {
     this.add(listShowPanel, listPanelC);
     this.add(buttonPanel, buttonPanelC);
 
-    // User click Messages Add button - prompt for message body and add new Message to Conversation
+    // User click Messages Add button - prompt for message body and add new MessageComp to Conversation
     addButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -155,7 +155,7 @@ public final class MessagePanel extends JPanel {
           JOptionPane.showMessageDialog(MessagePanel.this, "You must select a conversation.");
         } else {
           final String messageText = (String) JOptionPane.showInputDialog(
-              MessagePanel.this, "Enter message:", "Add Message", JOptionPane.PLAIN_MESSAGE,
+              MessagePanel.this, "Enter message:", "Add MessageComp", JOptionPane.PLAIN_MESSAGE,
               null, null, "");
           if (messageText != null && messageText.length() > 0) {
             clientContext.message.addMessage(

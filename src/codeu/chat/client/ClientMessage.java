@@ -126,8 +126,8 @@ public final class ClientMessage {
 
   // For m-next command.
   // Accept an index (within the current stream) that indicates the next message to show.
-  // Message 1 is the head of the Conversation's message chain.
-  // Message -1 is the tail of the Conversation's message chain.
+  // MessageComp 1 is the head of the Conversation's message chain.
+  // MessageComp -1 is the tail of the Conversation's message chain.
   public void selectMessage(int index) {
     Method.notImplemented();
   }
@@ -226,7 +226,7 @@ public final class ClientMessage {
     }
   }
 
-  // Print Message.  User context is used to map from author UUID to name.
+  // Print MessageComp.  User context is used to map from author UUID to name.
   public static void printMessage(Message m, ClientUser userContext) {
     if (m == null) {
       System.out.println("Null message.");
@@ -240,7 +240,7 @@ public final class ClientMessage {
     }
   }
 
-  // Print Message outside of user context.
+  // Print MessageComp outside of user context.
   public static void printMessage(Message m) {
     printMessage(m, null);
   }

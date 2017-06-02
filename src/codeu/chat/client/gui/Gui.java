@@ -3,6 +3,8 @@ package codeu.chat.client.gui;
 import codeu.chat.client.ClientContext;
 import codeu.chat.client.Controller;
 import codeu.chat.client.View;
+import codeu.chat.client.gui.chatpanel.ChatPanel;
+import codeu.chat.client.gui.events.ConversationChangeEvent;
 import codeu.chat.client.gui.sidepanel.SidePanel;
 import codeu.chat.util.Logger;
 import javafx.fxml.FXML;
@@ -27,8 +29,14 @@ public final class Gui extends BorderPane implements Initializable {
     @FXML
     private SidePanel sidePanel;
 
+    @FXML
+    private ChatPanel chatPanel;
+
     public Gui(Controller controller, View view) {
         context = new ClientContext(controller, view);
+
+        sidePanel = new SidePanel();
+        chatPanel = new ChatPanel();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui.fxml"));
         fxmlLoader.setRoot(this);
@@ -39,10 +47,16 @@ public final class Gui extends BorderPane implements Initializable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
+        // When SidePanel notifies of a selection change, update chatPanel
+        sidePanel.addEventHandler(ConversationChangeEvent.CONVERSATION_CHANGE, (ConversationChangeEvent e) -> {
+            chatPanel.update();
+        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sidePanel.setContext(context);
+        chatPanel.setContext(context);
     }
 }

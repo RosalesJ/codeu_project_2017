@@ -65,7 +65,7 @@ public final class Controller implements RawController, BasicController {
 
       message = new Message(id, Uuid.NULL, Uuid.NULL, creationTime, author, body);
       model.add(message);
-      LOG.info("Message added: %s", message.id);
+      LOG.info("MessageComp added: %s", message.id);
 
       // Find and update the previous "last" message so that it's "next" value
       // will point to the new message.
