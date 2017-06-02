@@ -56,6 +56,13 @@ public class Database {
     conversations = database.getCollection("conversations");
   }
 
+  public void clear() {
+    users.drop();
+    messages.drop();
+    conversations.drop();
+  }
+
+
   /**
    * Convert a Message to document form and store in messages collection
    * @param message the message to store
