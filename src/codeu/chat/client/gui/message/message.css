@@ -1,0 +1,21 @@
+.row {
+    -fx-padding: 0 0 8px 0;
+}
+
+.label {
+    -fx-font-size: 14px;
+}
+
+.author {
+    -fx-font-weight: bold;
+    -fx-padding: 0 8px 0 0;
+}
+
+.time {
+    -fx-font-weight: lighter;
+    -fx-text-fill: gray;
+}
+
+.message {
+
+}

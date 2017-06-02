@@ -118,7 +118,7 @@ public final class ServerFrontEnd {
 
   private void handleReadMessage(Connection connection) throws IOException {
 
-    LOG.info("Handling Read Message - start");
+    LOG.info("Handling Read MessageComp - start");
 
     final Uuid teamId = Uuid.SERIALIZER.read(connection.in());
     final byte[] teamSecret = Serializers.BYTES.read(connection.in());
@@ -138,12 +138,12 @@ public final class ServerFrontEnd {
     Serializers.INTEGER.write(connection.out(), NetworkCode.RELAY_READ_RESPONSE);
     Serializers.collection(BUNDLE_SERIALIZER).write(connection.out(), result);
 
-    LOG.info("Handling Read Message - end");
+    LOG.info("Handling Read MessageComp - end");
   }
 
   private void handleWriteMessage(Connection connection) throws IOException {
 
-    LOG.info("Handling Write Message - start");
+    LOG.info("Handling Write MessageComp - start");
 
     final Uuid teamId = Uuid.SERIALIZER.read(connection.in());
     final byte[] teamSecret = Serializers.BYTES.read(connection.in());
@@ -169,6 +169,6 @@ public final class ServerFrontEnd {
     Serializers.INTEGER.write(connection.out(), NetworkCode.RELAY_WRITE_RESPONSE);
     Serializers.BOOLEAN.write(connection.out(), result);
 
-    LOG.info("Handling Write Message - end");
+    LOG.info("Handling Write MessageComp - end");
   }
 }

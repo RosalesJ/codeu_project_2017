@@ -55,7 +55,7 @@ public final class Chat {
     System.out.println("   c-add <title>    - add a new conversation.");
     System.out.println("   c-list-all       - list all conversations known to system.");
     System.out.println("   c-select <index> - select conversation from list.");
-    System.out.println("Message commands:");
+    System.out.println("MessageComp commands:");
     System.out.println("   m-add <body>     - add a new message to the current conversation.");
     System.out.println("   m-list-all       - list all messages in the current conversation.");
     System.out.println("   m-next <index>   - index of next message to view.");
@@ -145,7 +145,7 @@ public final class Chat {
         System.out.println("ERROR: No conversation selected.");
       } else {
         if (!tokenScanner.hasNext()) {
-          System.out.println("ERROR: Message body not supplied.");
+          System.out.println("ERROR: MessageComp body not supplied.");
         } else {
           clientContext.message.addMessage(clientContext.user.getCurrent().id,
               clientContext.conversation.getCurrentId(),
@@ -216,7 +216,7 @@ public final class Chat {
       if (!clientContext.message.hasCurrent()) {
         System.out.println(" -- no current message --");
       } else {
-        System.out.println("\nCurrent Message:");
+        System.out.println("\nCurrent MessageComp:");
         clientContext.message.showCurrent();
       }
     }

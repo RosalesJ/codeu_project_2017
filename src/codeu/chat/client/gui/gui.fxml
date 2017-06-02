@@ -2,9 +2,9 @@
 <?import codeu.chat.client.gui.chatpanel.ChatPanel?>
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml">
     <left>
-        <SidePanel fx:id="sidePanel"></SidePanel>
+        <SidePanel fx:id="sidePanel" />
     </left>
     <center>
-        <ChatPanel></ChatPanel>
+        <ChatPanel fx:id="chatPanel" />
     </center>
 </fx:root>
