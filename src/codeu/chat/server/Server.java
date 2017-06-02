@@ -61,16 +61,22 @@ public final class Server {
 
     this.database = new Database(databaseName);
 
+
     // pull data from database
+
+    LOG.info("Loading users");
     for (User user : database.getUsers(100)) {
-      controller.newUser(user.id, user.name, user.creation);
+      controller.newUser(user.id,user.name,user.creation);
     }
+    LOG.info("Loading conversations");
     for (Conversation conversation : database.getConversations(100)) {
-      controller.newConversation(conversation.id, conversation.title, conversation.owner, conversation.creation);
+      controller.newConversation(conversation.id,conversation.title,conversation.owner,conversation.creation);
     }
+    LOG.info("Loading messages");
     for (Message message : database.getMessages(1000)){
-      controller.newMessage(message.id, message.author, null, message.content, message.creation);
+      controller.newMessage(message.id,message.author,model.conversationById().all().iterator().next().id,message.content,message.creation);
     }
+
 
     this.relay = relay;
     timeline.scheduleNow(new Runnable() {
@@ -161,10 +167,11 @@ public final class Server {
 
       final Message message = controller.newMessage(author, conversation, content);
 
+      LOG.info("Writing new message to DB");
+      database.writeMessage(message);
+
       Serializers.INTEGER.write(out, NetworkCode.NEW_MESSAGE_RESPONSE);
       Serializers.nullable(Message.SERIALIZER).write(out, message);
-
-      database.writeMessage(message);
 
       timeline.scheduleNow(createSendToRelayEvent(
           author,
@@ -177,6 +184,9 @@ public final class Server {
 
       final User user = controller.newUser(name);
 
+      LOG.info("Writing new user to DB");
+      database.writeUser(user,"password");
+
       Serializers.INTEGER.write(out, NetworkCode.NEW_USER_RESPONSE);
       Serializers.nullable(User.SERIALIZER).write(out, user);
 
@@ -187,10 +197,12 @@ public final class Server {
 
       final Conversation conversation = controller.newConversation(title, owner);
 
+      LOG.info("Writing new conversation to DB");
+      database.writeConversation(conversation);
+
       Serializers.INTEGER.write(out, NetworkCode.NEW_CONVERSATION_RESPONSE);
       Serializers.nullable(Conversation.SERIALIZER).write(out, conversation);
 
-      database.writeConversation(conversation);
     } else if (type == NetworkCode.GET_USERS_BY_ID_REQUEST) {
 
       final Collection<Uuid> ids = Serializers.collection(Uuid.SERIALIZER).read(in);
