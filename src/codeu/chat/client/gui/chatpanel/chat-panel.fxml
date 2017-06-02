@@ -1,8 +1,14 @@
 <?import codeu.chat.client.gui.messagespanel.MessagesPanel?>
+<?import codeu.chat.client.gui.messagebar.MessageBar?>
 <?import java.net.URL?>
-<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" styleClass="chat-panel">
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" styleClass="chat-panel">
     <stylesheets>
         <URL value="@chat-panel.css"></URL>
     </stylesheets>
-    <MessagesPanel fx:id="messagesPanel" />
+    <center>
+        <MessagesPanel fx:id="messagesPanel" />
+    </center>
+    <bottom>
+        <MessageBar fx:id="messageBar" />
+    </bottom>
 </fx:root>

@@ -1,0 +1,15 @@
+.message-bar {
+    -fx-background-color: white;
+}
+
+.editor {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-width: 4px;
+    -fx-border-radius: 2px;
+    -fx-border-color: lightgray;
+}
+
+.editor:focused {
+    -fx-border-color: darkgray;
+}

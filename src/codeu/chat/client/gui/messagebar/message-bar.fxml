@@ -1,0 +1,10 @@
+<?import java.net.URL?>
+<?import javafx.scene.control.TextField?>
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" styleClass="message-bar">
+    <stylesheets>
+        <URL value="@message-bar.css"></URL>
+    </stylesheets>
+    <center>
+        <TextField fx:id="editor" styleClass="editor" />
+    </center>
+</fx:root>

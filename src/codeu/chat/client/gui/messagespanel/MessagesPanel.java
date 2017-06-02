@@ -34,7 +34,7 @@ public class MessagesPanel extends VBox {
 
     public void update() {
         // Remove current children
-        this.getChildren().removeAll();
+        this.getChildren().remove(0, this.getChildren().size());
 
         // Get current ConversationSummary
         ConversationSummary curr = context.conversation.getCurrent();
