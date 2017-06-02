@@ -3,7 +3,7 @@ bin
 build
 *.class
 *.log
-
+*.lck
 # JetBrains IDE
 .idea
 *.iml
