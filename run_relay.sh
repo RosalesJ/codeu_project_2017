@@ -28,4 +28,4 @@ if [ ! -f "${TEAM_FILE}" ] ; then
 fi
 
 cd './bin'
-java codeu.chat.RelayMain "${PORT}" "${TEAM_FILE}"
+java -cp ./third_party/*:./bin codeu.chat.RelayMain "${PORT}" "${TEAM_FILE}"
