@@ -85,11 +85,19 @@ public class GuiClientMain extends Application {
         primary.setTitle("24 Chat");
 
         loginScene = new LoginScene(new StackPane(), 800, 600);
-        loginScene.addEventHandler(AccountEvent.ACCOUNT_LOGIN, (AccountEvent e) -> System.out.println("Login"));
-        loginScene.addEventHandler(AccountEvent.ACCOUNT_SIGNUP, (AccountEvent e) -> System.out.println("Signup"));
+        loginScene.addEventHandler(AccountEvent.ACCOUNT_LOGIN, (AccountEvent e) -> {
+            System.out.println("Login");
+
+            // TODO: Finish
+        });
+        loginScene.addEventHandler(AccountEvent.ACCOUNT_SIGNUP, (AccountEvent e) -> {
+            System.out.println("Signup");
+
+            // TODO: Finish
+        });
         chatScene = new ChatScene(new StackPane(), gui, 800, 600);
 
-        primary.setScene(loginScene);
+        primary.setScene(chatScene);
         primary.show();
     }
 }

@@ -1,9 +1,13 @@
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" styleClass="side-panel">
     <stylesheets>
         <URL value="@side-panel.css"></URL>
     </stylesheets>
-    <Label text="Conversations" styleClass="header"></Label>
+    <HBox>
+        <Label text="Conversations" styleClass="header"></Label>
+        <Button fx:id="add" text="Add" />
+    </HBox>
 </fx:root>

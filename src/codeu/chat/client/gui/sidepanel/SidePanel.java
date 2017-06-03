@@ -4,8 +4,12 @@ import codeu.chat.client.ClientContext;
 import codeu.chat.client.ClientConversation;
 import codeu.chat.client.gui.events.ConversationChangeEvent;
 import codeu.chat.common.ConversationSummary;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -20,6 +24,9 @@ import java.io.IOException;
 public class SidePanel extends VBox {
     private ClientContext context;
 
+    @FXML
+    private Button add;
+
     public SidePanel() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("side-panel.fxml"));
         fxmlLoader.setRoot(this);
@@ -30,7 +37,11 @@ public class SidePanel extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
 
+    @FXML
+    public void initialize() {
+        add.setOnAction((ActionEvent e) -> System.out.println("Clicked!"));
         this.setMinWidth(150);
     }
 

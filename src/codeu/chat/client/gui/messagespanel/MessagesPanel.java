@@ -6,8 +6,7 @@ import codeu.chat.common.ConversationSummary;
 import codeu.chat.common.Message;
 import codeu.chat.util.Time;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
