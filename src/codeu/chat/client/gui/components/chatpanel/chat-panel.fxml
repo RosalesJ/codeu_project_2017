@@ -7,7 +7,7 @@
         <URL value="@chat-panel.css"></URL>
     </stylesheets>
     <center>
-        <ScrollPane hbarPolicy="NEVER" styleClass="scroll">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" styleClass="scroll">
             <content>
                 <MessagesPanel fx:id="messagesPanel" />
             </content>

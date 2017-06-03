@@ -6,6 +6,7 @@ import codeu.chat.client.gui.components.messagebar.MessageBar;
 import codeu.chat.client.gui.components.messagespanel.MessagesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -15,6 +16,9 @@ import java.io.IOException;
  */
 public class ChatPanel extends BorderPane {
     private ClientContext context;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private MessagesPanel messagesPanel;
@@ -46,7 +50,10 @@ public class ChatPanel extends BorderPane {
     }
 
     public void update() {
+        // Update messages
         messagesPanel.update();
+
+        // Check if text bar should be live
         if (!context.conversation.hasCurrent()) {
             messageBar.setDisable(true);
         } else {
