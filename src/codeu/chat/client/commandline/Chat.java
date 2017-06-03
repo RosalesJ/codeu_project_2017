@@ -194,7 +194,7 @@ public final class Chat {
 
   // Sign in a user.
   private void signInUser(String name) {
-    if (!clientContext.user.signInUser(name)) {
+    if (!clientContext.user.signInUser(name,"password")) {
       System.out.println("Error: sign in failed (invalid name?)");
     }
   }
@@ -267,7 +267,7 @@ public final class Chat {
 
   // Add a new user.
   private void addUser(String name) {
-    clientContext.user.addUser(name);
+    clientContext.user.addUser(name,"password");
   }
 
   // Display all users known to server.
