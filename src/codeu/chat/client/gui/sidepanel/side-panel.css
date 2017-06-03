@@ -23,6 +23,6 @@
 }
 
 .header {
-    -fx-padding: 0px 0 8px 0;
+    -fx-padding: 0px 4px 8px 0;
     -fx-font-weight: bolder;
 }
