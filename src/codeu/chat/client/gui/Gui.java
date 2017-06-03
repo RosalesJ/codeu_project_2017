@@ -17,8 +17,6 @@ import java.io.IOException;
  * Borrowed heavily from the SimpleChatGui class.
  */
 public final class Gui extends BorderPane {
-    private final static Logger.Log LOG = Logger.newLog(Gui.class);
-
     private final ClientContext context;
 
     @FXML
@@ -52,11 +50,4 @@ public final class Gui extends BorderPane {
             chatPanel.update();
         });
     }
-
-    public void update() {
-        sidePanel.update();
-        chatPanel.update();
-    }
-
-
 }
