@@ -6,7 +6,6 @@ import codeu.chat.client.gui.messagebar.MessageBar;
 import codeu.chat.client.gui.messagespanel.MessagesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -37,12 +36,17 @@ public class ChatPanel extends BorderPane {
 
     @FXML
     public void initialize() {
-        this.addEventFilter(MessageEmittedEvent.MESSAGE_EMITTED,
-                (MessageEmittedEvent e) -> System.out.println(e.getMessage()));
+        this.addEventFilter(MessageEmittedEvent.MESSAGE_EMITTED, (MessageEmittedEvent e) -> {
+            System.out.println(e.getMessage());
+
+            context.message.addMessage(context.user.getCurrent().id, context.conversation.getCurrentId(),
+                    e.getMessage());
+            messagesPanel.update();
+        });
     }
 
     public void update() {
-        messagesPanel.setContext(context);
+        messagesPanel.update();
         if (!context.conversation.hasCurrent()) {
             messageBar.setDisable(true);
         } else {
@@ -52,6 +56,7 @@ public class ChatPanel extends BorderPane {
 
     public void setContext(ClientContext context) {
         this.context = context;
+        messagesPanel.setContext(context);
         update();
     }
 }
