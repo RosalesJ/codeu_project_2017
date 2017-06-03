@@ -55,7 +55,7 @@ public class SidePanel extends VBox {
         this.setMinWidth(150);
     }
 
-    private void update() {
+    public void update() {
         if ((context != null) && context.user.hasCurrent()) userLabel.setText(context.user.getCurrent().name);
 
         // Reset labels (besides header label)

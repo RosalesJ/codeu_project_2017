@@ -30,7 +30,6 @@ public class GuiClientMain extends Application {
     private static ClientContext context;
 
     private static Gui gui;
-    private static Scene chatScene, loginScene;
 
     private static void runClient(String[] args, Controller controller, View view) {
         LOG.info("Created client");
@@ -85,22 +84,19 @@ public class GuiClientMain extends Application {
     public void start(Stage primary) {
         primary.setTitle("24 Chat");
 
-        loginScene = new LoginScene(new StackPane(), 800, 600);
-        loginScene.addEventHandler(AccountEvent.ACCOUNT_LOGIN, (AccountEvent e) -> {
-            System.out.println("Login");
-
-            if (context.user.signInUser(e.getUsername())) primary.setScene(chatScene);
-        });
-        loginScene.addEventHandler(AccountEvent.ACCOUNT_SIGNUP, (AccountEvent e) -> {
-            System.out.println("Signup");
-
-            context.user.addUser(e.getUsername());
-
-            if (context.user.signInUser(e.getUsername())) primary.setScene(chatScene);
-        });
-        chatScene = new ChatScene(new StackPane(), context, 800, 600);
+        Scene loginScene = new LoginScene(new StackPane(), 800, 600);
+        loginScene.addEventHandler(AccountEvent.ACCOUNT_LOGIN, (AccountEvent e) -> handleAccountEvent(e, primary));
+        loginScene.addEventHandler(AccountEvent.ACCOUNT_SIGNUP, (AccountEvent e) -> handleAccountEvent(e, primary));
 
         primary.setScene(loginScene);
         primary.show();
+    }
+
+    private void handleAccountEvent(AccountEvent e, Stage primary) {
+        if (e.getEventType().equals(AccountEvent.ACCOUNT_SIGNUP)) context.user.addUser(e.getUsername());
+
+        if (context.user.signInUser(e.getUsername())) {
+            primary.setScene(new ChatScene(new StackPane(), context, 800, 600));
+        }
     }
 }

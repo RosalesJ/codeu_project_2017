@@ -4,13 +4,21 @@
     -fx-border-style: solid;
 }
 
+.user {
+    -fx-padding: 0 0 8px 0;
+}
+
+.new-conversation-panel {
+    -fx-padding: 0 0 8px 8px;
+}
+
 .label {
     -fx-font-size: 16px;
 }
 
 .conversation {
     -fx-font-weight: lighter;
-    -fx-padding: 0px 0 8px 8px;
+    -fx-padding: 0 0 8px 8px;
     -fx-text-fill: gray;
 }
 
@@ -23,6 +31,6 @@
 }
 
 .header {
-    -fx-padding: 0px 4px 8px 0;
+    -fx-padding: 0 4px 8px 0;
     -fx-font-weight: bolder;
 }

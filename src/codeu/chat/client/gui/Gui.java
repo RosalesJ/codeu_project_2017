@@ -52,4 +52,11 @@ public final class Gui extends BorderPane {
             chatPanel.update();
         });
     }
+
+    public void update() {
+        sidePanel.update();
+        chatPanel.update();
+    }
+
+
 }

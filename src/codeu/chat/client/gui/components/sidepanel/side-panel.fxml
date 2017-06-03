@@ -8,9 +8,9 @@
     <stylesheets>
         <URL value="@side-panel.css"></URL>
     </stylesheets>
-    <Label fx:id="userLabel" />
+    <Label fx:id="userLabel" styleClass="user" />
     <Label text="Conversations" styleClass="header"></Label>
-    <HBox>
+    <HBox styleClass="new-conversation-panel">
         <TextField fx:id="newConversationField" />
         <Button fx:id="add" text="Add" />
     </HBox>
