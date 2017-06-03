@@ -1,12 +1,11 @@
-package codeu.chat.client.gui.messagespanel;
+package codeu.chat.client.gui.components.messagespanel;
 
 import codeu.chat.client.ClientContext;
-import codeu.chat.client.gui.message.MessageComp;
+import codeu.chat.client.gui.components.message.MessageComp;
 import codeu.chat.common.ConversationSummary;
 import codeu.chat.common.Message;
 import codeu.chat.util.Time;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;

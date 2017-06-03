@@ -1,6 +1,7 @@
 # Java
 bin
 build
+database
 *.class
 *.log
 *.lck

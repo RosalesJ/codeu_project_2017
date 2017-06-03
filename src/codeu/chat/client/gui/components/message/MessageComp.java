@@ -1,7 +1,6 @@
-package codeu.chat.client.gui.message;
+package codeu.chat.client.gui.components.message;
 
 import codeu.chat.util.Time;
-import javafx.beans.NamedArg;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

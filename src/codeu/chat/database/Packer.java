@@ -1,4 +1,4 @@
-package codeu.chat.Database;
+package codeu.chat.database;
 
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;

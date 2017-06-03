@@ -1,9 +1,9 @@
-package codeu.chat.client.gui.chatpanel;
+package codeu.chat.client.gui.components.chatpanel;
 
 import codeu.chat.client.ClientContext;
 import codeu.chat.client.gui.events.MessageEmittedEvent;
-import codeu.chat.client.gui.messagebar.MessageBar;
-import codeu.chat.client.gui.messagespanel.MessagesPanel;
+import codeu.chat.client.gui.components.messagebar.MessageBar;
+import codeu.chat.client.gui.components.messagespanel.MessagesPanel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;

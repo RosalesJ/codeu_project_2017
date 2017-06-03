@@ -15,8 +15,8 @@
 
 package codeu.chat.server;
 
-import codeu.chat.Database.Database;
-import codeu.chat.Database.Packer;
+import codeu.chat.database.Database;
+import codeu.chat.database.Packer;
 import codeu.chat.common.*;
 import codeu.chat.util.*;
 import codeu.chat.util.connections.Connection;

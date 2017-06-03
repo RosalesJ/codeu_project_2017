@@ -1,4 +1,4 @@
-package codeu.chat.client.gui.login;
+package codeu.chat.client.gui.components.login;
 
 import codeu.chat.client.gui.events.AccountEvent;
 import javafx.event.ActionEvent;

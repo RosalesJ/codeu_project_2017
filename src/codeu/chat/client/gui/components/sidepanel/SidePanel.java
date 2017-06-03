@@ -1,16 +1,15 @@
-package codeu.chat.client.gui.sidepanel;
+package codeu.chat.client.gui.components.sidepanel;
 
 import codeu.chat.client.ClientContext;
-import codeu.chat.client.ClientConversation;
 import codeu.chat.client.gui.events.ConversationChangeEvent;
 import codeu.chat.common.ConversationSummary;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -23,6 +22,9 @@ import java.io.IOException;
  */
 public class SidePanel extends VBox {
     private ClientContext context;
+
+    @FXML
+    private TextField newConversationField;
 
     @FXML
     private Button add;
@@ -41,7 +43,13 @@ public class SidePanel extends VBox {
 
     @FXML
     public void initialize() {
-        add.setOnAction((ActionEvent e) -> System.out.println("Clicked!"));
+        add.setOnAction((ActionEvent e) -> {
+            System.out.println("Clicked!");
+
+            if (!newConversationField.getText().isEmpty()) {
+
+            }
+        });
         this.setMinWidth(150);
     }
 

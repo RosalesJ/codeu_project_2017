@@ -1,5 +1,5 @@
-<?import codeu.chat.client.gui.messagespanel.MessagesPanel?>
-<?import codeu.chat.client.gui.messagebar.MessageBar?>
+<?import codeu.chat.client.gui.components.messagespanel.MessagesPanel?>
+<?import codeu.chat.client.gui.components.messagebar.MessageBar?>
 <?import java.net.URL?>
 <?import javafx.scene.control.ScrollPane?>
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml" styleClass="chat-panel">
@@ -7,7 +7,7 @@
         <URL value="@chat-panel.css"></URL>
     </stylesheets>
     <center>
-        <ScrollPane hbarPolicy="NEVER">
+        <ScrollPane hbarPolicy="NEVER" styleClass="scroll">
             <content>
                 <MessagesPanel fx:id="messagesPanel" />
             </content>

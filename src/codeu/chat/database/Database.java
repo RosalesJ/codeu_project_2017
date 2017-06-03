@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package codeu.chat.Database;
+package codeu.chat.database;
 
 import codeu.chat.common.Conversation;
 import codeu.chat.common.Message;
@@ -185,7 +185,7 @@ public class Database {
   }
 
   /**
-   * Return a collection of Users from the Database
+   * Return a collection of Users from the database
    * @param limit the maximum number of users in the collection
    * @return an ArrayList of Users
    */
@@ -200,7 +200,7 @@ public class Database {
   }
 
   /**
-   * Return a collection of Messages from the Database
+   * Return a collection of Messages from the database
    * @param limit the maximum number of messages in the collection
    * @return an ArrayList of Users
    */
@@ -215,7 +215,7 @@ public class Database {
   }
 
   /**
-   * Return a collection of Conversations from the Database
+   * Return a collection of Conversations from the database
    * @param limit the maximum number of conversations int he collection
    * @return
    */

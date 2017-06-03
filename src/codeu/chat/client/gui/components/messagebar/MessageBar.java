@@ -1,4 +1,4 @@
-package codeu.chat.client.gui.messagebar;
+package codeu.chat.client.gui.components.messagebar;
 
 import codeu.chat.client.gui.events.MessageEmittedEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,8 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 /**
+ * Simple component to type messages and send them to be processed by ChatPanel.
+ *
  * Created by GNPMobile on 6/2/17.
  */
 public class MessageBar extends BorderPane {

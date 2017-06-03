@@ -1,0 +1,8 @@
+.chat-panel {
+    -fx-padding: 16px;
+}
+
+.scroll {
+   -fx-focus-color: transparent;
+   -fx-faint-focus-color: transparent;
+}

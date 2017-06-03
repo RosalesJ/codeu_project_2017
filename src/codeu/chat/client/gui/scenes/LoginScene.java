@@ -1,6 +1,6 @@
 package codeu.chat.client.gui.scenes;
 
-import codeu.chat.client.gui.login.LoginComp;
+import codeu.chat.client.gui.components.login.LoginComp;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 

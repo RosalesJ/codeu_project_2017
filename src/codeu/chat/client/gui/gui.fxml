@@ -1,5 +1,5 @@
-<?import codeu.chat.client.gui.sidepanel.SidePanel?>
-<?import codeu.chat.client.gui.chatpanel.ChatPanel?>
+<?import codeu.chat.client.gui.components.sidepanel.SidePanel?>
+<?import codeu.chat.client.gui.components.chatpanel.ChatPanel?>
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml">
     <left>
         <SidePanel fx:id="sidePanel" />

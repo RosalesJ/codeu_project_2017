@@ -1,6 +1,6 @@
 package codeu.chat.client.gui.events;
 
-import codeu.chat.client.gui.messagebar.MessageBar;
+import codeu.chat.client.gui.components.messagebar.MessageBar;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.event.EventType;

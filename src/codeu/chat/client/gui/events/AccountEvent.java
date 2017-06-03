@@ -1,6 +1,6 @@
 package codeu.chat.client.gui.events;
 
-import codeu.chat.client.gui.login.LoginComp;
+import codeu.chat.client.gui.components.login.LoginComp;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.event.EventType;
