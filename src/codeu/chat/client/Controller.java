@@ -21,7 +21,6 @@ import codeu.chat.util.Serializers;
 import codeu.chat.util.Uuid;
 import codeu.chat.util.connections.Connection;
 import codeu.chat.util.connections.ConnectionSource;
-import sun.nio.ch.Net;
 
 public class Controller implements BasicController {
 
@@ -36,7 +35,7 @@ public class Controller implements BasicController {
   public User login(String username, String password) {
     User loggedIn = null;
 
-    try(final Connection connection = source.connect()) {
+    try (final Connection connection = source.connect()) {
       Serializers.INTEGER.write(connection.out(), NetworkCode.LOGIN_REQUEST);
       Serializers.STRING.write(connection.out(), username);
       Serializers.STRING.write(connection.out(), password);
@@ -45,12 +44,10 @@ public class Controller implements BasicController {
 
       if (response == NetworkCode.LOGIN_RESULT) {
         loggedIn = Serializers.nullable(User.SERIALIZER).read(connection.in());
-      }
-      else {
+      } else {
         LOG.error("Response from server failed");
       }
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       System.out.println("ERROR: Exception during login. Check log for details");
       LOG.error(ex, "Exception during user login");
     }
@@ -61,23 +58,23 @@ public class Controller implements BasicController {
   public User signup(String username, String password) {
     User loggedIn = null;
 
-    try(final Connection connection = source.connect()) {
+    try (final Connection connection = source.connect()) {
       Serializers.INTEGER.write(connection.out(), NetworkCode.SIGNUP_REQUEST);
       Serializers.STRING.write(connection.out(), username);
       Serializers.STRING.write(connection.out(), password);
 
-      if(Serializers.INTEGER.read(connection.in()) == NetworkCode.SIGNUP_RESPONSE) {
+      if (Serializers.INTEGER.read(connection.in()) == NetworkCode.SIGNUP_RESPONSE) {
         loggedIn = Serializers.nullable(User.SERIALIZER).read(connection.in());
-      }
-      else {
+      } else {
         LOG.error("Response from server failed");
       }
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       System.out.println("ERROR: Exception during signup. Check log for details");
       LOG.error(ex, "Exception during user signup");
     }
+    return loggedIn;
   }
+
 
   @Override
   public Message newMessage(Uuid author, Uuid conversation, String body) {
