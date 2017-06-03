@@ -44,14 +44,11 @@ public class LoginComp extends VBox {
     }
 
     private void handleAccountEvent(EventType<AccountEvent> type) {
-        // Send Event
-        this.fireEvent(new AccountEvent(this, null, type));
-
         if ((getUsername().equals("")) || (getPassword().equals(""))) {
             errorTag.setText("Please provide both username and password.");
+        } else {
+            this.fireEvent(new AccountEvent(this, null, type));
         }
-
-        // TODO: Error if user does not exist
     }
 
     public String getUsername() {
@@ -60,5 +57,9 @@ public class LoginComp extends VBox {
 
     public String getPassword() {
         return password.getText();
+    }
+
+    public void setError(String err) {
+        errorTag.setText(err);
     }
 }

@@ -8,11 +8,10 @@
     <stylesheets>
         <URL value="@side-panel.css"></URL>
     </stylesheets>
-    <VBox>
-        <Label text="Conversations" styleClass="header"></Label>
-        <HBox>
-            <TextField fx:id="newConverationField" />
-            <Button fx:id="add" text="Add" />
-        </HBox>
-    </VBox>
+    <Label fx:id="userLabel" />
+    <Label text="Conversations" styleClass="header"></Label>
+    <HBox>
+        <TextField fx:id="newConversationField" />
+        <Button fx:id="add" text="Add" />
+    </HBox>
 </fx:root>

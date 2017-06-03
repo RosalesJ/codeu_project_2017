@@ -24,6 +24,9 @@ public class SidePanel extends VBox {
     private ClientContext context;
 
     @FXML
+    private Label userLabel;
+
+    @FXML
     private TextField newConversationField;
 
     @FXML
@@ -44,18 +47,19 @@ public class SidePanel extends VBox {
     @FXML
     public void initialize() {
         add.setOnAction((ActionEvent e) -> {
-            System.out.println("Clicked!");
-
             if (!newConversationField.getText().isEmpty()) {
-
+                context.conversation.startConversation(newConversationField.getText(), context.user.getCurrent().id);
+                update();
             }
         });
         this.setMinWidth(150);
     }
 
     private void update() {
+        if ((context != null) && context.user.hasCurrent()) userLabel.setText(context.user.getCurrent().name);
+
         // Reset labels (besides header label)
-        if (this.getChildren().size() > 1) this.getChildren().remove(1, this.getChildren().size());
+        if (this.getChildren().size() > 3) this.getChildren().remove(3, this.getChildren().size());
 
         // Update labels and add them back
         context.conversation.updateAllConversations(false);
