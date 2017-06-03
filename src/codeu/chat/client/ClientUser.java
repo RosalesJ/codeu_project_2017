@@ -65,12 +65,12 @@ public final class ClientUser {
     return current;
   }
 
-  public boolean signInUser(String name) {
+  public boolean signInUser(String name, String password) {
     updateUsers();
 
     final User prev = current;
     if (name != null) {
-      final User newCurrent = usersByName.first(name);
+      final User newCurrent = controller.login(name, password);
       if (newCurrent != null) {
         current = newCurrent;
       }
@@ -88,10 +88,10 @@ public final class ClientUser {
     printUser(current);
   }
 
-  public void addUser(String name) {
+  public void addUser(String name, String password) {
     final boolean validInputs = isValidName(name);
 
-    final User user = (validInputs) ? controller.newUser(name) : null;
+    final User user = (validInputs) ? controller.signup(name, password) : null;
 
     if (user == null) {
       System.out.format("Error: user not created - %s.\n",

@@ -7,6 +7,7 @@ import codeu.chat.client.gui.Gui;
 import codeu.chat.client.gui.events.AccountEvent;
 import codeu.chat.client.gui.scenes.ChatScene;
 import codeu.chat.client.gui.scenes.LoginScene;
+import codeu.chat.common.User;
 import codeu.chat.util.Logger;
 import codeu.chat.util.RemoteAddress;
 import codeu.chat.util.connections.ClientConnectionSource;
@@ -80,6 +81,7 @@ public class GuiClientMain extends Application {
         }
     }
 
+
     @Override
     public void start(Stage primary) {
         primary.setTitle("24 Chat");
@@ -93,9 +95,9 @@ public class GuiClientMain extends Application {
     }
 
     private void handleAccountEvent(AccountEvent e, Stage primary) {
-        if (e.getEventType().equals(AccountEvent.ACCOUNT_SIGNUP)) context.user.addUser(e.getUsername());
+        if (e.getEventType().equals(AccountEvent.ACCOUNT_SIGNUP)) context.user.addUser(e.getUsername(), e.getPassword());
 
-        if (context.user.signInUser(e.getUsername())) {
+        if (context.user.signInUser(e.getUsername(), e.getPassword())) {
             primary.setScene(new ChatScene(new StackPane(), context, 800, 600));
         }
     }
