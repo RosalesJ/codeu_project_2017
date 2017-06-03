@@ -61,7 +61,6 @@ public final class Server {
 
     this.database = new Database(databaseName);
 
-
     // pull data from database
 
     LOG.info("Loading users");
@@ -103,16 +102,17 @@ public final class Server {
   }
 
   public User login(String username, String password) {
-    Collection<User> users = database.findUser(username);
-    if(!users.isEmpty()) {
-      Iterable<Document> foundDocs = database.users.find(Filters.text(username));
-
-      for(Document doc : foundDocs) {
-        if (password.equals(doc.get("password"))) {
-          return Packer.unpackUser(doc);
-        }
+    LOG.info("Logging in " + username);
+    Iterable<Document> foundDocs = database.users.find(Filters.eq("name", username));
+    LOG.info("Found user");
+    for(Document doc : foundDocs) {
+      System.out.println(doc);
+      if (password.equals(doc.get("password"))) {
+        LOG.info("Successfully logged in " + username);
+        return Packer.unpackUser(doc);
       }
     }
+
     return null;
   }
 
@@ -306,7 +306,7 @@ public final class Server {
 
       User signupResult = signup(username, password);
 
-      Serializers.INTEGER.write(out, NetworkCode.LOGIN_RESULT);
+      Serializers.INTEGER.write(out, NetworkCode.SIGNUP_RESPONSE);
       Serializers.nullable(User.SERIALIZER).write(out,signupResult);
 
     } else {
