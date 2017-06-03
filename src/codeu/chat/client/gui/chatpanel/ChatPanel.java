@@ -24,12 +24,6 @@ public class ChatPanel extends BorderPane {
     private MessageBar messageBar;
 
     public ChatPanel() {
-        messagesPanel = new MessagesPanel();
-        messageBar = new MessageBar();
-
-        this.addEventFilter(MessageEmittedEvent.MESSAGE_EMITTED,
-                (MessageEmittedEvent e) -> System.out.println(e.getMessage()));
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("chat-panel.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -39,6 +33,12 @@ public class ChatPanel extends BorderPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    @FXML
+    public void initialize() {
+        this.addEventFilter(MessageEmittedEvent.MESSAGE_EMITTED,
+                (MessageEmittedEvent e) -> System.out.println(e.getMessage()));
     }
 
     public void update() {

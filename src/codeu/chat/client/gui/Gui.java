@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  *
  * Borrowed heavily from the SimpleChatGui class.
  */
-public final class Gui extends BorderPane implements Initializable {
+public final class Gui extends BorderPane {
     private final static Logger.Log LOG = Logger.newLog(Gui.class);
 
     private final ClientContext context;
@@ -32,11 +32,8 @@ public final class Gui extends BorderPane implements Initializable {
     @FXML
     private ChatPanel chatPanel;
 
-    public Gui(Controller controller, View view) {
-        context = new ClientContext(controller, view);
-
-        sidePanel = new SidePanel();
-        chatPanel = new ChatPanel();
+    public Gui(ClientContext context) {
+        this.context = context;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui.fxml"));
         fxmlLoader.setRoot(this);
@@ -47,16 +44,17 @@ public final class Gui extends BorderPane implements Initializable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    @FXML
+    public void initialize() {
+        sidePanel.setContext(context);
+        chatPanel.setContext(context);
 
         // When SidePanel notifies of a selection change, update chatPanel
         sidePanel.addEventHandler(ConversationChangeEvent.CONVERSATION_CHANGE, (ConversationChangeEvent e) -> {
+            System.out.println("Conversation clicked");
             chatPanel.update();
         });
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        sidePanel.setContext(context);
-        chatPanel.setContext(context);
     }
 }

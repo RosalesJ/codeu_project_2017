@@ -7,8 +7,10 @@
         <URL value="@chat-panel.css"></URL>
     </stylesheets>
     <center>
-        <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
-            <MessagesPanel fx:id="messagesPanel" />
+        <ScrollPane hbarPolicy="NEVER">
+            <content>
+                <MessagesPanel fx:id="messagesPanel" />
+            </content>
         </ScrollPane>
     </center>
     <bottom>

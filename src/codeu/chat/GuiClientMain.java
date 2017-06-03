@@ -1,5 +1,6 @@
 package codeu.chat;
 
+import codeu.chat.client.ClientContext;
 import codeu.chat.client.Controller;
 import codeu.chat.client.View;
 import codeu.chat.client.gui.Gui;
@@ -26,16 +27,16 @@ import java.util.Arrays;
 public class GuiClientMain extends Application {
 
     private static final Logger.Log LOG = Logger.newLog(GuiClientMain.class);
+    private static ClientContext context;
 
     private static Gui gui;
-
     private static Scene chatScene, loginScene;
 
     private static void runClient(String[] args, Controller controller, View view) {
         LOG.info("Created client");
 
         try {
-            gui = new Gui(controller, view);
+            context = new ClientContext(controller, view);
             launch(args);
         } catch (Exception e) {
             System.out.println("ERROR: Exception in GuiClientMain.start. Check log for details.");
@@ -95,7 +96,7 @@ public class GuiClientMain extends Application {
 
             // TODO: Finish
         });
-        chatScene = new ChatScene(new StackPane(), gui, 800, 600);
+        chatScene = new ChatScene(new StackPane(), context, 800, 600);
 
         primary.setScene(chatScene);
         primary.show();
