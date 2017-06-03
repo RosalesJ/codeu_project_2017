@@ -1,5 +1,6 @@
 package codeu.chat;
 
+import codeu.chat.client.ClientContext;
 import codeu.chat.client.Controller;
 import codeu.chat.client.View;
 import codeu.chat.client.gui.Gui;
@@ -26,16 +27,16 @@ import java.util.Arrays;
 public class GuiClientMain extends Application {
 
     private static final Logger.Log LOG = Logger.newLog(GuiClientMain.class);
+    private static ClientContext context;
 
     private static Gui gui;
-
     private static Scene chatScene, loginScene;
 
     private static void runClient(String[] args, Controller controller, View view) {
         LOG.info("Created client");
 
         try {
-            gui = new Gui(controller, view);
+            context = new ClientContext(controller, view);
             launch(args);
         } catch (Exception e) {
             System.out.println("ERROR: Exception in GuiClientMain.start. Check log for details.");
@@ -85,9 +86,19 @@ public class GuiClientMain extends Application {
         primary.setTitle("24 Chat");
 
         loginScene = new LoginScene(new StackPane(), 800, 600);
-        loginScene.addEventHandler(AccountEvent.ACCOUNT_LOGIN, (AccountEvent e) -> System.out.println("Login"));
-        loginScene.addEventHandler(AccountEvent.ACCOUNT_SIGNUP, (AccountEvent e) -> System.out.println("Signup"));
-        chatScene = new ChatScene(new StackPane(), gui, 800, 600);
+        loginScene.addEventHandler(AccountEvent.ACCOUNT_LOGIN, (AccountEvent e) -> {
+            System.out.println("Login");
+
+            context.user.signInUser(e.getUsername());
+            primary.setScene(chatScene);
+        });
+        loginScene.addEventHandler(AccountEvent.ACCOUNT_SIGNUP, (AccountEvent e) -> {
+            System.out.println("Signup");
+
+            context.user.addUser(e.getUsername());
+            primary.setScene(chatScene);
+        });
+        chatScene = new ChatScene(new StackPane(), context, 800, 600);
 
         primary.setScene(loginScene);
         primary.show();

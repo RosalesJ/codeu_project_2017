@@ -18,13 +18,6 @@ public class MessageBar extends BorderPane {
     private TextField editor;
 
     public MessageBar() {
-        editor = new TextField();
-
-        editor.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode().equals(KeyCode.ENTER) && !editor.getText().isEmpty())
-                this.fireEvent(new MessageEmittedEvent(this, null));
-        });
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("message-bar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -34,6 +27,20 @@ public class MessageBar extends BorderPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    @FXML
+    public void initialize() {
+        editor.addEventFilter(KeyEvent.ANY, e -> {
+            if (e.getCode().equals(KeyCode.ENTER) && e.getEventType().equals(KeyEvent.KEY_PRESSED)
+                    && !editor.getText().isEmpty()) {
+                // Fire event to be handled by ChatPanel
+                this.fireEvent(new MessageEmittedEvent(this, null));
+
+                // Reset TextField
+                editor.setText("");
+            }
+        });
     }
 
     public String getMessage() {
