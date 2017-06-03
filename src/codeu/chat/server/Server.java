@@ -291,7 +291,26 @@ public final class Server {
       Serializers.INTEGER.write(out, NetworkCode.GET_MESSAGES_BY_RANGE_RESPONSE);
       Serializers.collection(Message.SERIALIZER).write(out, messages);
 
+    } else if (type == NetworkCode.LOGIN_REQUEST) {
+      String username = Serializers.STRING.read(in);
+      String password = Serializers.STRING.read(in);
+
+      User loginResult = login(username, password);
+
+      Serializers.INTEGER.write(out, NetworkCode.LOGIN_RESULT);
+      Serializers.nullable(User.SERIALIZER).write(out,loginResult);
+
+    } else if (type == NetworkCode.SIGNUP_REQUEST) {
+      String username = Serializers.STRING.read(in);
+      String password = Serializers.STRING.read(in);
+
+      User signupResult = signup(username, password);
+
+      Serializers.INTEGER.write(out, NetworkCode.LOGIN_RESULT);
+      Serializers.nullable(User.SERIALIZER).write(out,signupResult);
+
     } else {
+
 
       // In the case that the message was not handled make a dummy message with
       // the type "NO_MESSAGE" so that the client still gets something.
